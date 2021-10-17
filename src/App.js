@@ -1,7 +1,10 @@
 import { useState, useMemo } from "react";
+import { useSelector } from 'react-redux';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, amber } from "@mui/material/colors";
+
 import Navigation from "./components/Navigation";
+import Auth from './components/Auth';
 
 const getDesignTokens = (mode) => ({
   palette: {
@@ -27,6 +30,8 @@ const getDesignTokens = (mode) => ({
 });
 
 function App() {
+  const tmpMode = useSelector(state => state.mode.mode);
+  const isAuth = useSelector(state => state.auth.isAuthenticated);
   const [mode, setMode] = useState("light");
   const colorMode = useMemo(
     () => ({
@@ -50,6 +55,10 @@ function App() {
         <li>https://mui.com/customization/dark-mode/</li>
       </ul>
       <div>{theme.palette.mode} mode</div>
+      <p>{tmpMode} mode from Redux</p>
+      <Auth />
+      {isAuth && <p>Authenticated status: Logged in</p>}
+      {!isAuth && <p>Authenticated status: Logged out</p>}
     </ThemeProvider>
   );
 }
