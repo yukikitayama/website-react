@@ -9,7 +9,7 @@ import ThemeToggle from './ThemeToggle';
 const Navigation = () => {
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar >
         <IconButton
           size="large"
           edge="start"
