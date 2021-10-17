@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, amber } from "@mui/material/colors";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import Navigation from "./components/Navigation";
 import Auth from "./components/Auth";
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Box
         sx={{
           bgcolor: "background.default",
@@ -48,6 +50,7 @@ function App() {
           <ul>
             <li>Show menu is navigation bar in a wide screen</li>
             <li>But hide in menu icon in a narrow screen</li>
+            <li>Separate sidebar code from Navigation component</li>
           </ul>
           <p>{mode} mode from Redux</p>
           <Auth />
