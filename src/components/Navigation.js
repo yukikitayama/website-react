@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 import ThemeToggle from "./ThemeToggle";
 
@@ -52,13 +54,34 @@ const Navigation = () => {
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 2 }}
+          sx={{ mr: 2, display: { xs: "block", md: "none" } }}
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-          Yuki Kitayama
-        </Typography>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h5" component="div">
+            Yuki Kitayama
+          </Typography>
+          <Tabs
+            value="dashboard"
+            // textColor="inherit"
+            textColor="secondary"
+            indicatorColor="secondary"
+            sx={{ display: { xs: "none", md: "block" }, pt: 1, pl: 2 }}
+          >
+            <Tab value="dashboard" label="Dashboard" />
+            <Tab value="skill" label="Skill" />
+            <Tab value="expense" label="Expense" />
+            <Tab value="fitness" label="Fitness" />
+          </Tabs>
+        </Box>
         <ThemeToggle />
         <Drawer anchor="left" open={state} onClose={toggleDrawer(false)}>
           {list}
