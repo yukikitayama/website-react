@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -15,7 +16,14 @@ import Tab from "@mui/material/Tab";
 import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
+  // Side menu
   const [state, setState] = useState(false);
+  // Tabs menu
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -36,7 +44,7 @@ const Navigation = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Skill", "Money", "Health"].map((text, index) => (
+        {["Skill", "Expense", "Fitness"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
@@ -70,16 +78,17 @@ const Navigation = () => {
             Yuki Kitayama
           </Typography>
           <Tabs
-            value="dashboard"
+            value={value}
+            onChange={handleChange}
             // textColor="inherit"
             textColor="secondary"
             indicatorColor="secondary"
             sx={{ display: { xs: "none", md: "block" }, pt: 1, pl: 2 }}
           >
-            <Tab value="dashboard" label="Dashboard" />
-            <Tab value="skill" label="Skill" />
-            <Tab value="expense" label="Expense" />
-            <Tab value="fitness" label="Fitness" />
+            <Tab label="Dashboard" component={Link} to={'/dashboard'} />
+            <Tab label="Skill" component={Link} to={'/skill'} />
+            <Tab label="Expense" component={Link} to={'/expense'} />
+            <Tab label="Fitness" component={Link} to={'/fitness'} />
           </Tabs>
         </Box>
         <ThemeToggle />

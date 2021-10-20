@@ -1,3 +1,4 @@
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, amber } from "@mui/material/colors";
@@ -6,11 +7,14 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Navigation from "./components/Navigation";
-import Auth from "./components/Auth";
+import Dashboard from './pages/Dashboard';
+import Skill from './pages/Skill';
+import Expense from './pages/Expense';
+import Fitness from './pages/Fitness';
+// import TestPage from "./pages/TestPage";
 
 function App() {
   const mode = useSelector((state) => state.mode.mode);
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   const theme = createTheme({
     palette: {
@@ -47,41 +51,26 @@ function App() {
       >
         <Container maxWidth="lg">
           <Navigation />
-          <ul>
-            <li>Separate sidebar code from Navigation component</li>
-            <li>Make Expense route</li>
-            <li>Activate Expense tab when a user is in Expense route</li>
-            <li>Connect Redux route state to Tabs state value</li>
-          </ul>
-          <p>{mode} mode from Redux</p>
-          <Auth />
-          {isAuth && <p>Authenticated status: Logged in</p>}
-          {!isAuth && <p>Authenticated status: Logged out</p>}
-
-          <p>Display when screen is wide</p>
-          <Box
-            sx={{
-              display: { xs: "none", md: "inline" },
-              m: 2,
-              p: 2,
-              bgcolor: "info.main",
-              borderRadius: 2
-            }}
-          >
-            Wide screen
-          </Box>
-          <p>Display when screen is narrow</p>
-          <Box
-            sx={{
-              display: { xs: "inline", md: "none" },
-              m: 2,
-              p: 2,
-              bgcolor: "success.main",
-              borderRadius: 2
-            }}
-          >
-            Narrow screen
-          </Box>
+          <Switch>
+            <Route path='/' exact>
+              <Redirect to='/dashboard' />
+            </Route>
+            <Route path='/dashboard' exact>
+              <Dashboard />
+            </Route>
+            <Route path='/skill' exact>
+              <Skill />
+            </Route>
+            <Route path='/expense' exact>
+              <Expense />
+            </Route>
+            <Route path='/fitness' excat>
+              <Fitness />
+            </Route>
+            <Route path='*'>
+              <Redirect to='/dashboard' />
+            </Route>
+          </Switch>
         </Container>
       </Box>
     </ThemeProvider>
