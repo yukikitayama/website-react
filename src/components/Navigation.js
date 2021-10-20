@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -85,10 +85,10 @@ const Navigation = () => {
             indicatorColor="secondary"
             sx={{ display: { xs: "none", md: "block" }, pt: 1, pl: 2 }}
           >
-            <Tab label="Dashboard" component={Link} to={'/dashboard'} />
-            <Tab label="Skill" component={Link} to={'/skill'} />
-            <Tab label="Expense" component={Link} to={'/expense'} />
-            <Tab label="Fitness" component={Link} to={'/fitness'} />
+            <Tab label="Dashboard" component={Link} to={"/dashboard"} />
+            <Tab label="Skill" component={Link} to={"/skill"} />
+            <Tab label="Expense" component={Link} to={"/expense"} />
+            <Tab label="Fitness" component={Link} to={"/fitness"} />
           </Tabs>
         </Box>
         <ThemeToggle />
