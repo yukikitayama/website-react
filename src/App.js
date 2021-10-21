@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import Dashboard from './pages/Dashboard';
 import Skill from './pages/Skill';
 import Expense from './pages/Expense';
+import ExpenseNewItem from './pages/ExpenseNewItem';
 import Fitness from './pages/Fitness';
 // import TestPage from "./pages/TestPage";
 
@@ -63,6 +64,9 @@ function App() {
             </Route>
             <Route path='/expense' exact>
               <Expense />
+            </Route>
+            <Route path='/expense/new-item' exact>
+              <ExpenseNewItem />
             </Route>
             <Route path='/fitness' excat>
               <Fitness />
