@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -16,6 +16,11 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Grid from "@mui/material/Grid";
+import LinearProgress from '@mui/material/LinearProgress';
+
+import { environment } from '../environments/environments';
+
+const API_URL = environment.apiGatewayUrl;
 
 const ExpenseNewItem = () => {
   const [date, setDate] = useState(new Date());
@@ -24,6 +29,8 @@ const ExpenseNewItem = () => {
   const [amount, setAmount] = useState(0);
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const history = useHistory();
 
   const dateChangeHandler = (newValue) => {
     setDate(newValue);
@@ -49,12 +56,36 @@ const ExpenseNewItem = () => {
     setMemo(event.target.value);
   };
 
-  const formSubmissionHandler = (event) => {
+  const formSubmissionHandler = async (event) => {
     event.preventDefault();
 
-    console.log(
-      `Date: ${date.toISOString()}, Item: ${item}, Type: ${type}, Amount: ${amount}, Place: ${place}, Memo: ${memo}`
-    );
+    setIsSubmitting(true);
+
+    const response = await fetch(`${API_URL}/expense`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        date: date.toISOString().split('T')[0],
+        item: item,
+        type: type,
+        amount: amount,
+        place: place,
+        memo: memo
+      })
+    });
+
+    response.json()
+      .then(data => {
+        setIsSubmitting(false);
+        console.log(`Success: ${data.message}`);
+        history.push('/expense');
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        console.log(`Error: ${error}`);
+      });
   };
 
   return (
@@ -151,6 +182,7 @@ const ExpenseNewItem = () => {
                     </Button>
                   </Stack>
                 </CardActions>
+                {isSubmitting && <LinearProgress color="secondary"/>}
               </Card>
             </form>
           </LocalizationProvider>
