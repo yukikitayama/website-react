@@ -19,7 +19,18 @@ const Navigation = () => {
   // Side menu
   const [state, setState] = useState(false);
   // Tabs menu
-  const [value, setValue] = useState(0);
+  const path = window.location.pathname;
+  let tabValue = 0;
+  if (path.includes("dashboard")) {
+    tabValue = 0;
+  } else if (path.includes("skill")) {
+    tabValue = 1;
+  } else if (path.includes("expense")) {
+    tabValue = 2;
+  } else if (path.includes("fitness")) {
+    tabValue = 3;
+  }
+  const [value, setValue] = useState(tabValue);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
