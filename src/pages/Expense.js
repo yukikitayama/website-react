@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,8 +6,11 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import LinearProgress from "@mui/material/LinearProgress";
 import {
   LineChart,
   Line,
@@ -19,62 +22,51 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function createData(id, date, account, type, price, place, memo) {
-  return { id, date, account, type, price, place, memo };
-}
+import { environment } from "../environments/environments";
 
-const rows = [
-  createData("0", "2021-10-20", "Lunch", "Expenditure", 7, "Smashburger", ""),
-  createData("1", "2021-10-20", "Dinner", "Expenditure", 2, "Home", "Cooked"),
-  createData("2", "2021-10-20", "Salary", "Income", 10, "Company", ""),
-];
-
-// const data = [
-//   {
-//     name: "Page A",
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page B",
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210,
-//   },
-//   {
-//     name: "Page C",
-//     uv: 2000,
-//     pv: 9800,
-//     amt: 2290,
-//   },
-//   {
-//     name: "Page D",
-//     uv: 2780,
-//     pv: 3908,
-//     amt: 2000,
-//   },
-//   {
-//     name: "Page E",
-//     uv: 1890,
-//     pv: 4800,
-//     amt: 2181,
-//   },
-//   {
-//     name: "Page F",
-//     uv: 2390,
-//     pv: 3800,
-//     amt: 2500,
-//   },
-//   {
-//     name: "Page G",
-//     uv: 3490,
-//     pv: 4300,
-//     amt: 2100,
-//   },
-// ];
+const API_URL = environment.apiGatewayUrl;
 
 const Expense = () => {
+  const [expenses, setExpenses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const fetchExpensesHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`${API_URL}/expense`);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const data = await response.json();
+
+      setExpenses(data.expenses);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  }, []);
+
+  // useEffect() with [] empty dependency, this will never run again
+  // except the component firstly is loaded
+  useEffect(() => {
+    fetchExpensesHandler();
+  }, [fetchExpensesHandler]);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Fragment>
       <p>Show the monthly total expenditure</p>
@@ -83,51 +75,61 @@ const Expense = () => {
         <LineChart
           // width={400}
           // height={400}
-          data={rows}
+          data={expenses}
           // margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           {/* <CartesianGrid /> */}
-          <XAxis dataKey="account" />
+          <XAxis dataKey="item" />
           <YAxis />
           {/* <Tooltip /> */}
           <Legend />
-          <Line type="monotone" dataKey="price" />
+          <Line type="monotone" dataKey="amount" />
         </LineChart>
       </ResponsiveContainer>
-      <p>Button to add a new expense or income item to database</p>
       <Button variant="contained" component={Link} to={"/expense/new-item"}>
         Add New Item
       </Button>
       <p>Show the latest items by each expenditures and incomes</p>
+      {isLoading && <LinearProgress color="secondary" />}
+      {!isLoading && error && <p>{error}</p>}
       <TableContainer component={Paper}>
-        <Table>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell>Account</TableCell>
+              <TableCell>Item</TableCell>
               <TableCell>Type</TableCell>
-              <TableCell>Price</TableCell>
+              <TableCell>Amount</TableCell>
               <TableCell>Place</TableCell>
               <TableCell>Memo</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.id}
-                </TableCell>
+            {expenses.map((row) => (
+              <TableRow key={row._id}>
                 <TableCell>{row.date}</TableCell>
-                <TableCell>{row.account}</TableCell>
+                <TableCell>{row.item}</TableCell>
                 <TableCell>{row.type}</TableCell>
-                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.amount}</TableCell>
                 <TableCell>{row.place}</TableCell>
                 <TableCell>{row.memo}</TableCell>
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[1, 5, 10]}
+                count={expenses.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                // ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </Fragment>
