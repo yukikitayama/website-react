@@ -11,6 +11,7 @@ const Dashboard = () => {
   return (
     <Fragment>
       <ul>
+        <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>
         <li>Allow to delete the item in the Expense table</li>
         <li>Separate sidebar code from Navigation component</li>
