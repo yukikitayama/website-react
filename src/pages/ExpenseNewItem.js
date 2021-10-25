@@ -16,9 +16,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Grid from "@mui/material/Grid";
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
 
-import { environment } from '../environments/environments';
+import { environment } from "../environments/environments";
 
 const API_URL = environment.apiGatewayUrl;
 
@@ -62,25 +62,26 @@ const ExpenseNewItem = () => {
     setIsSubmitting(true);
 
     const response = await fetch(`${API_URL}/expense`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        date: date.toISOString().split('T')[0],
+        date: date.toISOString().split("T")[0],
         item: item,
         type: type,
         amount: amount,
         place: place,
-        memo: memo
-      })
+        memo: memo,
+      }),
     });
 
-    response.json()
-      .then(data => {
+    response
+      .json()
+      .then((data) => {
         setIsSubmitting(false);
         console.log(`Success: ${data.message}`);
-        history.push('/expense');
+        history.push("/expense");
       })
       .catch((error) => {
         setIsSubmitting(false);
@@ -126,6 +127,8 @@ const ExpenseNewItem = () => {
                         <MenuItem value="grocery">Grocery</MenuItem>
                         <MenuItem value="lunch">Lunch</MenuItem>
                         <MenuItem value="dinner">Dinner</MenuItem>
+                        <MenuItem value="washer">Washer</MenuItem>
+                        <MenuItem value="dryer">Dryer</MenuItem>
                       </Select>
                       <FormHelperText>Required</FormHelperText>
                     </FormControl>
@@ -146,7 +149,8 @@ const ExpenseNewItem = () => {
                       label="Amount"
                       variant="outlined"
                       required
-                      type="number"
+                      // type="number"
+                      inputProps={{ inputMode: "numeric", pattern: "[0-9.]*" }}
                       helperText="Required"
                       defaultValue={amount}
                       onChange={amountChangeHandler}
@@ -182,7 +186,7 @@ const ExpenseNewItem = () => {
                     </Button>
                   </Stack>
                 </CardActions>
-                {isSubmitting && <LinearProgress color="secondary"/>}
+                {isSubmitting && <LinearProgress color="secondary" />}
               </Card>
             </form>
           </LocalizationProvider>

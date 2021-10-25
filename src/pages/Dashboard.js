@@ -11,9 +11,9 @@ const Dashboard = () => {
   return (
     <Fragment>
       <ul>
+        <li>Allow to modify the item in the Expense table</li>
+        <li>Allow to delete the item in the Expense table</li>
         <li>Separate sidebar code from Navigation component</li>
-        <li>Make Expense route</li>
-        <li>Activate Expense tab when a user is in Expense route</li>
         <li>Connect Redux route state to Tabs state value</li>
       </ul>
       <p>{mode} mode from Redux</p>

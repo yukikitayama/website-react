@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -22,6 +22,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import TablePaginationActions from "../components/TablePaginationActions";
 import { environment } from "../environments/environments";
 
 const API_URL = environment.apiGatewayUrl;
@@ -32,6 +33,7 @@ const Expense = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const history = useHistory();
 
   const fetchExpensesHandler = useCallback(async () => {
     setIsLoading(true);
@@ -58,6 +60,10 @@ const Expense = () => {
     fetchExpensesHandler();
   }, [fetchExpensesHandler]);
 
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - expenses.length) : 0;
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -65,6 +71,10 @@ const Expense = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const clickTableRowHandler = (event, id) => {
+    history.push(`/expense/update-item/${id}`);
   };
 
   return (
@@ -106,8 +116,14 @@ const Expense = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {expenses.map((row) => (
-              <TableRow key={row._id}>
+            {(rowsPerPage > 0
+              ? expenses.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : expenses
+            ).map((row) => (
+              <TableRow key={row._id} hover={true} onClick={(event) => clickTableRowHandler(event, row._id)}>
                 <TableCell>{row.date}</TableCell>
                 <TableCell>{row.item}</TableCell>
                 <TableCell>{row.type}</TableCell>
@@ -116,17 +132,22 @@ const Expense = () => {
                 <TableCell>{row.memo}</TableCell>
               </TableRow>
             ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[1, 5, 10]}
+                rowsPerPageOptions={[1, 5, 10, { value: -1, label: "All" }]}
                 count={expenses.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                // ActionsComponent={TablePaginationActions}
+                ActionsComponent={TablePaginationActions}
               />
             </TableRow>
           </TableFooter>
