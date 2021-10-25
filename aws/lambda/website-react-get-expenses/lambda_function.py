@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson import json_util
+from bson.objectid import ObjectId
 import boto3
 import json
 import pprint
@@ -34,8 +35,33 @@ collection = db[COLLECTION]
 
 
 def lambda_handler(event, context):
+    
+    # print('event:')
+    # pprint.pprint(event)
+    
+    # Get a single expense data by ID when ID parameter is specified
+    if (
+        event['queryStringParameters'] is not None and
+        'id' in event['queryStringParameters']
+    ):
+        expense_id = event['queryStringParameters']['id']
+        
+        # Find a single data
+        expense = collection.find_one({'_id': ObjectId(expense_id)})
+        expense = json.loads(json_util.dumps(expense))
+        expense['_id'] = expense['_id']['$oid']
 
-    # Get data
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'expense': expense
+            })
+        }
+
+    # Get all the expense data
     expenses = []
     for expense in collection.find():
         # Use json_util for BSON ID
@@ -64,5 +90,9 @@ def lambda_handler(event, context):
     
     
 if __name__ == '__main__':
-    event = {}
+    event = {
+        'queryStringParameters': {
+            'id': '617616e4ee56f35a0a4cfd03'
+        }
+    }
     pprint.pprint(lambda_handler(event, ''))
