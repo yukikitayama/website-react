@@ -1,16 +1,20 @@
 import { Fragment } from "react";
-import { useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 // import Auth from '../store/auth';
+import Auth from "../components/Auth";
 
 const Dashboard = () => {
-  const mode = useSelector(state => state.mode.mode);
-  const isAuth = useSelector(state => state.auth.isAuthenticated);
+  const mode = useSelector((state) => state.mode.mode);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <Fragment>
       <ul>
+        <li>Enable app wide Amplify authenticated status</li>
         <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>
         <li>Allow to delete the item in the Expense table</li>
@@ -18,9 +22,12 @@ const Dashboard = () => {
         <li>Connect Redux route state to Tabs state value</li>
       </ul>
       <p>{mode} mode from Redux</p>
-      {/* <Auth /> */}
+      <Auth />
       {isAuth && <p>Authenticated status: Logged in</p>}
       {!isAuth && <p>Authenticated status: Logged out</p>}
+      <Button variant="contained" component={Link} to={"/login"}>
+        To Login Page
+      </Button>
 
       <p>Display when screen is wide</p>
       <Box

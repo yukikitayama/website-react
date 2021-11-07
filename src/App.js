@@ -5,6 +5,8 @@ import { teal, amber } from "@mui/material/colors";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
 
 import Navigation from "./components/Navigation";
 import Dashboard from './pages/Dashboard';
@@ -13,7 +15,10 @@ import Expense from './pages/Expense';
 import ExpenseNewItem from './pages/ExpenseNewItem';
 import ExpenseUpdateItem from './pages/ExpenseUpdateItem';
 import Fitness from './pages/Fitness';
+import Login from './pages/Login';
 // import TestPage from "./pages/TestPage";
+
+Amplify.configure(awsconfig);
 
 function App() {
   const mode = useSelector((state) => state.mode.mode);
@@ -74,6 +79,9 @@ function App() {
             </Route>
             <Route path='/fitness' excat>
               <Fitness />
+            </Route>
+            <Route path='/login' exact>
+              <Login />
             </Route>
             <Route path='*'>
               <Redirect to='/dashboard' />
