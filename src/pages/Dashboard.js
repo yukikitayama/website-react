@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { Auth as AwsAuth } from "aws-amplify";
 
 // import Auth from '../store/auth';
 import Auth from "../components/Auth";
@@ -10,6 +11,23 @@ import Auth from "../components/Auth";
 const Dashboard = () => {
   const mode = useSelector((state) => state.mode.mode);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+
+  const getAuthenticatedStatus = async () => {
+    const response = await AwsAuth.currentAuthenticatedUser();
+    console.log(response);
+
+    const session = await AwsAuth.currentSession();
+    console.log(session);
+  };
+
+  const signOut = async () => {
+    try {
+      await AwsAuth.signOut();
+      console.log('signout success');
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  };
 
   return (
     <Fragment>
@@ -28,6 +46,8 @@ const Dashboard = () => {
       <Button variant="contained" component={Link} to={"/login"}>
         To Login Page
       </Button>
+      <Button onClick={getAuthenticatedStatus}>Get current authentication</Button>
+      <Button onClick={signOut} color="warning">Signout</Button>
 
       <p>Display when screen is wide</p>
       <Box
