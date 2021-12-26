@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
@@ -7,10 +7,14 @@ import { Auth as AwsAuth } from "aws-amplify";
 
 // import Auth from '../store/auth';
 import Auth from "../components/Auth";
+import AuthContext from "../store/auth-context";
 
 const Dashboard = () => {
   const mode = useSelector((state) => state.mode.mode);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const authCtx = useContext(AuthContext);
+
+  const isLoggedIn = authCtx.isLoggedIn;
 
   const getAuthenticatedStatus = async () => {
     const response = await AwsAuth.currentAuthenticatedUser();
@@ -23,6 +27,7 @@ const Dashboard = () => {
   const signOut = async () => {
     try {
       await AwsAuth.signOut();
+      authCtx.logout();
       console.log('signout success');
     } catch (error) {
       console.log('error signing out: ', error);
@@ -32,6 +37,7 @@ const Dashboard = () => {
   return (
     <Fragment>
       <ul>
+        <li>Start from Udemy React 308</li>
         <li>Enable app wide Amplify authenticated status</li>
         <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>
@@ -43,11 +49,11 @@ const Dashboard = () => {
       <Auth />
       {isAuth && <p>Authenticated status: Logged in</p>}
       {!isAuth && <p>Authenticated status: Logged out</p>}
-      <Button variant="contained" component={Link} to={"/login"}>
+      {!isLoggedIn && <Button variant="contained" component={Link} to={"/login"}>
         To Login Page
-      </Button>
-      <Button onClick={getAuthenticatedStatus}>Get current authentication</Button>
-      <Button onClick={signOut} color="warning">Signout</Button>
+      </Button>}
+      {isLoggedIn && <Button onClick={getAuthenticatedStatus}>Get current authentication</Button>}
+      {isLoggedIn && <Button onClick={signOut} color="warning">Signout</Button>}
 
       <p>Display when screen is wide</p>
       <Box

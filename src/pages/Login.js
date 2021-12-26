@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import Grid from "@mui/material/Grid";
@@ -10,12 +10,14 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LinearProgress from '@mui/material/LinearProgress';
+import AuthContext from "../store/auth-context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -31,9 +33,18 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      await Auth.signIn(email, password);
+      const signInResponse = await Auth.signIn(email, password);
+      const idToken = signInResponse.signInUserSession.idToken;
+      const jwtToken = idToken.jwtToken;
+      const exp = idToken.payload.exp;
+
+      authCtx.login(jwtToken);
+
       setIsLoading(false);
       console.log('signin success');
+      // console.log(signInResponse);
+      // console.log('jwtToken', jwtToken);
+      // console.log('exp', exp);
       history.push('/dashboard');
     } catch (error) {
       setIsLoading(false);

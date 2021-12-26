@@ -1,3 +1,10 @@
+/*
+authSlice needs to have
+token: ''
+isLoggedIn: false
+login: (token) => {},
+logout: () => {}
+*/
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialAuthState = { isAuthenticated: false };
