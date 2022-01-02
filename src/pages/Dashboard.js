@@ -24,6 +24,10 @@ const Dashboard = () => {
     console.log(session);
   };
 
+  const consoleIdToken = () => {
+    console.log(authCtx.token);
+  };
+
   const signOut = async () => {
     try {
       await AwsAuth.signOut();
@@ -34,16 +38,25 @@ const Dashboard = () => {
     }
   };
 
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
+
   return (
     <Fragment>
+      <p>Action</p>
       <ul>
-        <li>Start from Udemy React 308</li>
+        <li>Convert React Context API to Redux by Udemy Section 18</li>
         <li>Enable app wide Amplify authenticated status</li>
         <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>
         <li>Allow to delete the item in the Expense table</li>
         <li>Separate sidebar code from Navigation component</li>
         <li>Connect Redux route state to Tabs state value</li>
+      </ul>
+      <p>Issue</p>
+      <ul>
+        <li>When remove mode variable in local storage, app initialization fail.</li>
       </ul>
       <p>{mode} mode from Redux</p>
       <Auth />
@@ -53,7 +66,9 @@ const Dashboard = () => {
         To Login Page
       </Button>}
       {isLoggedIn && <Button onClick={getAuthenticatedStatus}>Get current authentication</Button>}
+      {isLoggedIn && <Button onClick={consoleIdToken}>Console ID Token</Button>}
       {isLoggedIn && <Button onClick={signOut} color="warning">Signout</Button>}
+      {isLoggedIn && <Button onClick={logoutHandler} color="warning">Logout</Button>}
 
       <p>Display when screen is wide</p>
       <Box

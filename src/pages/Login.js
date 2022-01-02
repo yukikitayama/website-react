@@ -34,18 +34,24 @@ const Login = () => {
 
     try {
       const signInResponse = await Auth.signIn(email, password);
+      // console.log(signInResponse);
+      
       const idToken = signInResponse.signInUserSession.idToken;
       const jwtToken = idToken.jwtToken;
+      // console.log('jwtToken', jwtToken);
+      
+      // Type: number, unit: second, meaning: Datetime when the ID expires
+      // By default, expires in 1 hour
       const exp = idToken.payload.exp;
+      const expirationTime = new Date(exp * 1000);
 
-      authCtx.login(jwtToken);
+      console.log('expirationTime', expirationTime);
+      
+      authCtx.login(jwtToken, expirationTime.toISOString());
 
       setIsLoading(false);
       console.log('signin success');
-      // console.log(signInResponse);
-      // console.log('jwtToken', jwtToken);
-      // console.log('exp', exp);
-      history.push('/dashboard');
+      history.replace('/dashboard');
     } catch (error) {
       setIsLoading(false);
       alert(`error signing in: ${error}`);
