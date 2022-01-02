@@ -56,7 +56,11 @@ const Dashboard = () => {
       </ul>
       <p>Issue</p>
       <ul>
-        <li>When remove mode variable in local storage, app initialization fail.</li>
+        <li>When remove mode variable in local storage, app initialization fail.
+          <ul>
+            <li>Solved. This was because ThemeToggle.js uses localStorage.getItem() to get the mode variable from browser storage to persist the light/dark mode, but at the very first time browser doesn't have the variable, so if null, set default light to mode.</li>
+          </ul>
+        </li>
       </ul>
       <p>{mode} mode from Redux</p>
       <Auth />

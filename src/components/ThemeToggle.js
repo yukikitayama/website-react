@@ -11,7 +11,13 @@ const ThemeToggle = () => {
   const mode = useSelector(state => state.mode.mode);
 
   // Persist mode for reload
-  const savedMode = localStorage.getItem('mode');
+  let savedMode = localStorage.getItem('mode');
+  // When a browser uses the app for the first time, 
+  // mode variable is not stored in browser storage,
+  // so it needs to set a default mode.
+  if (savedMode == null) {
+    savedMode = 'light';
+  }
   dispatch(modeActions.initializeMode(savedMode));
   
   const toggleModeHandler = () => {

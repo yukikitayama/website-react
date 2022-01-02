@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Website by React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Implementation
 
-## Available Scripts
+- xxx
 
-In the project directory, you can run:
+## React Note
 
-### `npm start`
+### React Hooks
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Hooks are something starting with `use`.
+  - Such as `useState, useEffect, useReducer, ...`
+- Only used in React components, which are JavaScript functions returning JSX.
+  - Don't use in a normal JavaScript function.
+- Use right below the React component declaration (top-level).
+  - Don't use in a nested React Hook functions.
+  - Don't use in a if statement.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Side Effect
 
-### `npm test`
+- `Side effect` is any functionality except the main React jobs such as rendering interface components and reacting to user inpute.
+  - Examples of side effect is storing data in browser storage, sending HTTP requests and setting timers.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Effect Hook
 
-### `npm run build`
+- `Effect hook` Contains the functions executed after every component evaluation if the dependencies changed.
+- `useEffect(() => { ... }, [ dependencies ]);`
+- Dependencies can omit React `useState()` functions.
+- If dependency array is empty the useEffect() runs only once when the component is rendered.
+- If there is not even empty dependency array, the function runs every time a component changes, so it's a rare use case.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### useReducer()
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `useReducer()` is a replacement for `useState()` to manage a more complex state.
+- `const [state, dispatchFunction] = useReducer(reducterFunction, initialState, initialFunction);`
+  - Dispatch function triggers an update of the state.
+  - Reducer function receives the latest state and action to produce a new state, triggered by dispatch function.
+- Group the related multiple states and actions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Context API
 
-### `npm run eject`
+- Make component-wide state storage.
+- `const SomeContext = React.createContext({ ... });`
+  - Default object for the context
+  - Used in `useContext( ... );`
+- Context provider
+```javascript
+const SomeContextProvider = (props) => {
+  return (
+    <SomeContext.Provider value={contextValue}>
+      {props.children}
+    </SomeContext.Provider>
+  );
+}
+```
+  - Defines functions and states inside
+- Limitation
+  - Not optimized for high frequency changes.
+    - Redux is better
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Reference
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
