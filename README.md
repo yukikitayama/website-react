@@ -58,6 +58,20 @@ const SomeContextProvider = (props) => {
   - Not optimized for high frequency changes.
     - Redux is better
 
+## Redux Note
+
+- State management system for cross-component or app-wide state.
+- Advantage of Redux over React Context
+  - When an app is complex, React Context will have multiple contexts, resulting in deeply nested context providers.
+  - React Context is not for high-frequency state changes.
+- Wrap components with Provider with the store to allow the component to access the Redux.
+  - `<Provider store={store}><App /></Provider>`
+- Use `useSelector() from 'react-redux'` to get the latest state.
+- Use `useDispatch() from 'react-redux'` to send action to update state.
+- Use `Redux Toolkit` to make it easier to implement Redux.
+  - [Redux Toolkit](https://redux-toolkit.js.org/)
+  - `$ npm install @reduxjs/toolkit`
+
 ## Reference
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

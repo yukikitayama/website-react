@@ -9,6 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./store/index";
 import { AuthContextProvider } from "./store/auth-context";
 
+// <Provider> is Redux
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>

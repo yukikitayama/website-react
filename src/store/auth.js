@@ -7,16 +7,25 @@ logout: () => {}
 */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialAuthState = { isAuthenticated: false };
+const initialAuthState = { 
+  isAuthenticated: false,
+  token: '',
+};
 
 const authSlice = createSlice({
   name: "authentication",
   initialState: initialAuthState,
   reducers: {
-    login(state) {
+    login(state, action) {
+      state.token = action.token;
+      localStorage.setItem('token', action.token);
+      localStorage.setItem('expirationTime', action.expirationTime);
       state.isAuthenticated = true;
     },
     logout(state) {
+      state.token = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('expirationTime');
       state.isAuthenticated = false;
     },
   },
