@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-import { authActions } from "../store/auth";
+import { authActions } from "../store/auth-slice";
 
 const Auth = () => {
   const dispatch = useDispatch();
 
   const loginHandler = () => {
-    dispatch(authActions.login());
+    dispatch(authActions.login({token: 'abc', expirationTime: '123'}));
   };
 
   const logoutHandler = () => {

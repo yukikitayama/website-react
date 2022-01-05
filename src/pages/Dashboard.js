@@ -46,7 +46,7 @@ const Dashboard = () => {
     <Fragment>
       <p>Action</p>
       <ul>
-        <li>Convert React Context API to Redux by Udemy Section 18 from 243. Connecting Redux Toolkit State.</li>
+        <li>Convert React Context API to Redux by Udemy Section 18 from 257. Using useEffect with Redux</li>
         <li>Enable app wide Amplify authenticated status</li>
         <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>

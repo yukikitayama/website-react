@@ -4,7 +4,7 @@ import Switch from "@mui/material/Switch";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-import { modeActions } from '../store/mode';
+import { modeActions } from '../store/mode-slice';
 
 const ThemeToggle = () => {
   const dispatch = useDispatch();

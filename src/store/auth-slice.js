@@ -17,9 +17,10 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     login(state, action) {
-      state.token = action.token;
-      localStorage.setItem('token', action.token);
-      localStorage.setItem('expirationTime', action.expirationTime);
+      // redux toolkit save argument of dispatch as payload
+      state.token = action.payload.token;
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('expirationTime', action.payload.expirationTime);
       state.isAuthenticated = true;
     },
     logout(state) {

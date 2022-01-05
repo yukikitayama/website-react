@@ -68,9 +68,14 @@ const SomeContextProvider = (props) => {
   - `<Provider store={store}><App /></Provider>`
 - Use `useSelector() from 'react-redux'` to get the latest state.
 - Use `useDispatch() from 'react-redux'` to send action to update state.
+  - Action payload is object
+  - In redux toolkit, the payload is accessed by `action.payload.OBJECT_KEY`
 - Use `Redux Toolkit` to make it easier to implement Redux.
   - [Redux Toolkit](https://redux-toolkit.js.org/)
   - `$ npm install @reduxjs/toolkit`
+- Reducers must be pure, side-effect free, synchronous functions. Side-effects and async tasks can be executed
+  - Inside the components using useEffect()
+  - Inside the action creators.
 
 ## Reference
 
