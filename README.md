@@ -6,6 +6,9 @@
 
 ## React Note
 
+- React directory structure
+  - [React Architecture: How to Structure and Organize a React Application](https://www.taniarascia.com/react-architecture-directory-structure/)
+
 ### React Hooks
 
 - Hooks are something starting with `use`.

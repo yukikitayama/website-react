@@ -61,6 +61,13 @@ const ExpenseNewItem = () => {
   const formSubmissionHandler = async (event) => {
     event.preventDefault();
 
+    // Do this extra step since DATE.toISOString() does not returns YYYY-MM-DD in UTC, but I want it in local timezone
+    // Get date string in format YYYY-MM-DD in the local timezone
+    // getTime() returns milliseconds since Unix Epoch
+    // getTimezoneOffset() returns minutes from UTC
+    // Newly created Date object has the same date and time, but in UTC
+    const yyyyMmDd = (new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)).toISOString().split("T")[0];
+
     setIsSubmitting(true);
 
     const response = await fetch(`${API_URL}/expense`, {
@@ -69,7 +76,7 @@ const ExpenseNewItem = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        date: date.toISOString().split("T")[0],
+        date: yyyyMmDd,
         item: item,
         type: type,
         amount: amount,
@@ -131,6 +138,8 @@ const ExpenseNewItem = () => {
                         <MenuItem value="dinner">Dinner</MenuItem>
                         <MenuItem value="washer">Washer</MenuItem>
                         <MenuItem value="dryer">Dryer</MenuItem>
+                        <MenuItem value="rent">Rent</MenuItem>
+                        <MenuItem value="google fi">Google Fi</MenuItem>
                       </Select>
                       <FormHelperText>Required</FormHelperText>
                     </FormControl>
