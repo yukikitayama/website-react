@@ -1,20 +1,16 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Auth as AwsAuth } from "aws-amplify";
 
-// import Auth from '../store/auth';
-import Auth from "../components/Auth";
-import AuthContext from "../store/auth-context";
+import { authActions } from '../store/auth-slice';
 
 const Dashboard = () => {
   const mode = useSelector((state) => state.mode.mode);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const authCtx = useContext(AuthContext);
-
-  const isLoggedIn = authCtx.isLoggedIn;
+  const dispatch = useDispatch();
 
   const getAuthenticatedStatus = async () => {
     const response = await AwsAuth.currentAuthenticatedUser();
@@ -24,36 +20,28 @@ const Dashboard = () => {
     console.log(session);
   };
 
-  const consoleIdToken = () => {
-    console.log(authCtx.token);
-  };
-
-  const signOut = async () => {
+  const logoutHandler = async () => {
     try {
       await AwsAuth.signOut();
-      authCtx.logout();
-      console.log('signout success');
+      localStorage.removeItem('token');
+      localStorage.removeItem('expirationTime');
+      dispatch(authActions.logout());
     } catch (error) {
       console.log('error signing out: ', error);
     }
-  };
-
-  const logoutHandler = () => {
-    authCtx.logout();
   };
 
   return (
     <Fragment>
       <p>Action</p>
       <ul>
-        <li>Convert React Context API to Redux by Udemy Section 18 from 257. Using useEffect with Redux</li>
-        <li>Enable app wide Amplify authenticated status</li>
         <li>Show the fetched single expense data to component</li>
         <li>Allow to modify the item in the Expense table</li>
         <li>Allow to delete the item in the Expense table</li>
         <li>Separate sidebar code from Navigation component</li>
         <li>Connect Redux route state to Tabs state value</li>
       </ul>
+      
       <p>Issue</p>
       <ul>
         <li>When remove mode variable in local storage, app initialization fail.
@@ -62,18 +50,18 @@ const Dashboard = () => {
           </ul>
         </li>
       </ul>
-      <p>{mode} mode from Redux</p>
-      <Auth />
-      {isAuth && <p>Authenticated status: Logged in</p>}
-      {!isAuth && <p>Authenticated status: Logged out</p>}
-      {!isLoggedIn && <Button variant="contained" component={Link} to={"/login"}>
-        To Login Page
-      </Button>}
-      {isLoggedIn && <Button onClick={getAuthenticatedStatus}>Get current authentication</Button>}
-      {isLoggedIn && <Button onClick={consoleIdToken}>Console ID Token</Button>}
-      {isLoggedIn && <Button onClick={signOut} color="warning">Signout</Button>}
-      {isLoggedIn && <Button onClick={logoutHandler} color="warning">Logout</Button>}
+      
+      <p>Mode</p>
+      <ul>
+        <li>{mode} mode from Redux</li>
+      </ul>
 
+      <p>Authentication</p>
+      {!isAuth && <Button variant="contained" component={Link} to={"/login"}>To Login Page</Button>}
+      {isAuth && <Button variant="contained" onClick={logoutHandler} color="warning">Logout</Button>}
+      {isAuth && <Button variant="contained" onClick={getAuthenticatedStatus}>Get current authentication</Button>}
+
+      <p>Screen size</p>
       <p>Display when screen is wide</p>
       <Box
         sx={{

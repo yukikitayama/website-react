@@ -70,12 +70,14 @@ const SomeContextProvider = (props) => {
 - Use `useDispatch() from 'react-redux'` to send action to update state.
   - Action payload is object
   - In redux toolkit, the payload is accessed by `action.payload.OBJECT_KEY`
+  - Do HTTP requests before or after the `useDispatch()` because reducers need to be side-effect free and synchronous.
 - Use `Redux Toolkit` to make it easier to implement Redux.
   - [Redux Toolkit](https://redux-toolkit.js.org/)
   - `$ npm install @reduxjs/toolkit`
 - Reducers must be pure, side-effect free, synchronous functions. Side-effects and async tasks can be executed
   - Inside the components using useEffect()
   - Inside the action creators.
+- `Thunk` is a function that delays an action until later.
 
 ## Reference
 

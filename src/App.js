@@ -1,11 +1,12 @@
+import { useEffect, useCallback } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, amber } from "@mui/material/colors";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Amplify from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 
 import Navigation from "./components/Navigation";
@@ -16,12 +17,34 @@ import ExpenseNewItem from "./pages/ExpenseNewItem";
 import ExpenseUpdateItem from "./pages/ExpenseUpdateItem";
 import Fitness from "./pages/Fitness";
 import Login from "./pages/Login";
+import { retrieveStoredToken } from './utils/helpers';
+import { authActions } from './store/auth-slice';
 // import TestPage from "./pages/TestPage";
 
 Amplify.configure(awsconfig);
 
 function App() {
   const mode = useSelector((state) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const logoutHandler = useCallback(async () => {
+    try {
+      await Auth.signOut();
+      localStorage.removeItem('token');
+      localStorage.removeItem('expirationTime');
+      dispatch(authActions.logout());
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const tokenData = retrieveStoredToken();
+    if (tokenData) {
+      dispatch(authActions.login({token: tokenData.token}));
+      setTimeout(logoutHandler, tokenData.duration);
+    }
+  }, [dispatch, logoutHandler]);
 
   const theme = createTheme({
     palette: {

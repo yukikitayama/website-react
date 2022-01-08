@@ -9,10 +9,16 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const loginHandler = () => {
-    dispatch(authActions.login({token: 'abc', expirationTime: '123'}));
+    const token = 'abc';
+    const expirationTime = '123';
+    localStorage.setItem('token', token);
+    localStorage.setItem('expirationTime', expirationTime);
+    dispatch(authActions.login({token: token, expirationTime: expirationTime}));
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationTime');
     dispatch(authActions.logout());
   };
 
