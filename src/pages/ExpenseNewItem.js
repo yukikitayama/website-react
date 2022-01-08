@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -31,6 +32,7 @@ const ExpenseNewItem = () => {
   const [memo, setMemo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory();
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   const dateChangeHandler = (newValue) => {
     setDate(newValue);
@@ -173,7 +175,7 @@ const ExpenseNewItem = () => {
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    <Button variant="contained" type="submit">
+                    <Button variant="contained" type="submit" disabled={!isAuth}>
                       Submit
                     </Button>
                     <Button

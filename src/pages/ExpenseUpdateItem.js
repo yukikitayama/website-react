@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 import Grid from "@mui/material/Grid";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -32,6 +32,7 @@ const ExpenseUpdateItem = () => {
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   const fetchExpenseHandler = async (id) => {
     setIsLoading(true);
@@ -165,7 +166,7 @@ const ExpenseUpdateItem = () => {
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    <Button variant="contained" type="submit">
+                    <Button variant="contained" type="submit" disabled={!isAuth}>
                       Submit
                     </Button>
                     <Button
@@ -176,7 +177,7 @@ const ExpenseUpdateItem = () => {
                     >
                       Cancel
                     </Button>
-                    <Button variant="contained" color="error">
+                    <Button variant="contained" color="error" disabled={!isAuth}>
                       Delete
                     </Button>
                   </Stack>
