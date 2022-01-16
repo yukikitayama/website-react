@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from bson import json_util
 from bson.objectid import ObjectId
 import boto3
+from datetime import datetime
 import json
 import pprint
 
@@ -60,10 +61,55 @@ def lambda_handler(event, context):
                 'expense': expense
             })
         }
+        
+    # Get monthly total expense
+    elif (
+        event['queryStringParameters'] is not None
+        and 'startDate' in event['queryStringParameters']
+        and 'endDate' in event['queryStringParameters']
+    ):
+        start_date = event['queryStringParameters']['startDate']
+        start_date = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date = event['queryStringParameters']['endDate']
+        end_date = datetime.strptime(end_date, '%Y-%m-%d')
+        
+        pipeline = [
+            # Convert date string to datetime
+            { '$addFields': { 'convertedDate': { '$toDate': '$date' } } },
+            # Filter documents by start date and end date
+            { '$match': { 'convertedDate': {'$gte': start_date, '$lt': end_date} } },
+            # Calculate monthly total
+            { '$group': {
+                '_id': { 
+                    'year': { '$year': '$convertedDate' },
+                    'month': { '$month': '$convertedDate' }
+                },
+                'totalExpense': { '$sum': '$amount' }
+            } },
+            # Sort by calendar
+            { '$sort': { '_id.year': 1, '_id.month': 1 } }
+        ]
+        expenses = []
+        for expense in collection.aggregate(pipeline):
+            expense['year'] = expense['_id']['year']
+            expense['month'] = expense['_id']['month']
+            del expense['_id']
+            expense['totalExpense'] = round(expense['totalExpense'], 2)
+            expenses.append(expense)
 
-    # Get all the expense data
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'expenses': expenses
+            })
+        }
+
+    # Get all the expense data by descending date order
     expenses = []
-    for expense in collection.find():
+    for expense in collection.find().sort('date', -1):
         # Use json_util for BSON ID
         expense = json.loads(json_util.dumps(expense))
         # Extract ID string
@@ -90,9 +136,20 @@ def lambda_handler(event, context):
     
     
 if __name__ == '__main__':
+    # event = {
+    #     'queryStringParameters': {
+    #         'id': '617616e4ee56f35a0a4cfd03'
+    #     }
+    # }
+    # event = {
+    #     'queryStringParameters': {
+    #         'startDate': '2021-10-01',
+    #         'endDate': '2022-02-01'
+    #     }
+    # }
     event = {
         'queryStringParameters': {
-            'id': '617616e4ee56f35a0a4cfd03'
+            'test': 1
         }
     }
     pprint.pprint(lambda_handler(event, ''))
