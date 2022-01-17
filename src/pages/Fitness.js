@@ -1,5 +1,13 @@
+import { Fragment } from "react";
+
+import Sleep from "../components/Sleep";
+
 const Fitness = () => {
-  return <p>Fitness page</p>
+  return (
+    <Fragment>
+      <Sleep />
+    </Fragment>
+  );
 };
 
 export default Fitness;

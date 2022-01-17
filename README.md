@@ -14,6 +14,12 @@
 - Dot notation
   - Access nested field. e.g. `{ '_id': { 'key': 'value' } }` can be `'_id.key'` to access `value`
 
+## Recharts
+
+- `<ReferenceLine />`
+  - Add a horizontal or vertical line to a plot as reference
+  - [ReferenceLine](https://recharts.org/en-US/api/ReferenceLine)
+
 ## React
 
 - React directory structure
