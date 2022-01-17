@@ -91,8 +91,9 @@ def lambda_handler(event, context):
         ]
         expenses = []
         for expense in collection.aggregate(pipeline):
-            expense['year'] = expense['_id']['year']
-            expense['month'] = expense['_id']['month']
+            year = expense['_id']['year']
+            month = expense['_id']['month']
+            expense['yearMonth'] = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
             del expense['_id']
             expense['totalExpense'] = round(expense['totalExpense'], 2)
             expenses.append(expense)
@@ -141,15 +142,15 @@ if __name__ == '__main__':
     #         'id': '617616e4ee56f35a0a4cfd03'
     #     }
     # }
-    # event = {
-    #     'queryStringParameters': {
-    #         'startDate': '2021-10-01',
-    #         'endDate': '2022-02-01'
-    #     }
-    # }
     event = {
         'queryStringParameters': {
-            'test': 1
+            'startDate': '2021-10-01',
+            'endDate': '2022-02-01'
         }
     }
+    # event = {
+    #     'queryStringParameters': {
+    #         'test': 1
+    #     }
+    # }
     pprint.pprint(lambda_handler(event, ''))
