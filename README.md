@@ -4,7 +4,17 @@
 
 - xxx
 
-## React Note
+## MongoDB
+
+- Difference between `$match` and `$filter`
+  - `$match` filters the documents which match the specified conditions.
+  - `$filter` has argument `input` which is an array in MongoDB. So it intends to get a subset of an array in a document.
+- `$` prefix to field name 
+  - Only use the `$` prefix when the field name is used in a value, not as a key.
+- Dot notation
+  - Access nested field. e.g. `{ '_id': { 'key': 'value' } }` can be `'_id.key'` to access `value`
+
+## React
 
 - React directory structure
   - [React Architecture: How to Structure and Organize a React Application](https://www.taniarascia.com/react-architecture-directory-structure/)
@@ -31,6 +41,8 @@
 - Dependencies can omit React `useState()` functions.
 - If dependency array is empty the useEffect() runs only once when the component is rendered.
 - If there is not even empty dependency array, the function runs every time a component changes, so it's a rare use case.
+- Run `fetch()` when a component mounts
+  - [How to fetch data with React Hooks](https://www.robinwieruch.de/react-hooks-fetch-data/)
 
 ### useReducer()
 
@@ -61,7 +73,7 @@ const SomeContextProvider = (props) => {
   - Not optimized for high frequency changes.
     - Redux is better
 
-## Redux Note
+## Redux
 
 - State management system for cross-component or app-wide state.
 - Advantage of Redux over React Context

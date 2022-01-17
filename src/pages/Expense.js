@@ -11,19 +11,11 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  // CartesianGrid,
-  // Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import Typography from '@mui/material/Typography';
 
 import TablePaginationActions from "../components/TablePaginationActions";
 import { environment } from "../environments/environments";
+import MonthlyExpense from '../components/MonthlyExpense';
 
 const API_URL = environment.apiGatewayUrl;
 
@@ -32,7 +24,7 @@ const Expense = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const history = useHistory();
 
   const fetchExpensesHandler = useCallback(async () => {
@@ -79,28 +71,11 @@ const Expense = () => {
 
   return (
     <Fragment>
-      <p>Show the monthly total expenditure</p>
-      <p>Show the monthly remaining amount divided by the income</p>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart
-          // width={400}
-          // height={400}
-          data={expenses}
-          // margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-        >
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
-          {/* <CartesianGrid /> */}
-          <XAxis dataKey="item" />
-          <YAxis />
-          {/* <Tooltip /> */}
-          <Legend />
-          <Line type="monotone" dataKey="amount" />
-        </LineChart>
-      </ResponsiveContainer>
+      <MonthlyExpense />
+      <Typography variant="h2" component="div">Ledger</Typography>
       <Button variant="contained" component={Link} to={"/expense/new-item"}>
         Add New Item
       </Button>
-      <p>Show the latest items by each expenditures and incomes</p>
       {isLoading && <LinearProgress color="secondary" />}
       {!isLoading && error && <p>{error}</p>}
       <TableContainer component={Paper}>
@@ -141,7 +116,7 @@ const Expense = () => {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[1, 5, 10, { value: -1, label: "All" }]}
+                rowsPerPageOptions={[10, 50, 100, { value: -1, label: "All" }]}
                 count={expenses.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
