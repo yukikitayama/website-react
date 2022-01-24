@@ -8,9 +8,9 @@ import Typography from "@mui/material/Typography";
 const DashboardCard = (props) => {
   return (
     <Fragment>
-      <Card variant="outlined" >
+      <Card elevation={4} >
         <CardActionArea>
-          <CardHeader title={props.title} subheader={props.subheader} />
+          <CardHeader title={props.title} subheader={props.subheader} avatar={props.icon} />
           <CardContent>
             <Typography variant="body1">{props.content}</Typography>
           </CardContent>

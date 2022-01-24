@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import WarningIcon from "@mui/icons-material/Warning";
+import AccessibiltyNewIcon from "@mui/icons-material/AccessibilityNew";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Auth as AwsAuth } from "aws-amplify";
 
 import DashboardCard from "../components/DashboardCard";
@@ -47,6 +51,7 @@ const Dashboard = () => {
           <DashboardCard
             title={"Todo"}
             subheader={"Things that I need to take action"}
+            icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
                 <li>Show the fetched single expense data to component</li>
@@ -65,6 +70,7 @@ const Dashboard = () => {
             subheader={
               "Weird or inconvenient things happening in this website and I need to fix"
             }
+            icon={<WarningIcon fontSize="large" color="primary" />}
             content={
               <ul>
                 <li>
@@ -96,6 +102,7 @@ const Dashboard = () => {
             subheader={
               "Playground section where I am testing developing React components"
             }
+            icon={<AccessibiltyNewIcon fontSize="large" color="primary" />}
             content={
               <Fragment>
                 <p>Mode</p>
@@ -137,6 +144,7 @@ const Dashboard = () => {
           <DashboardCard
             title={"Authentication"}
             subheader={"Checking login status"}
+            icon={<VpnKeyIcon fontSize="large" color="primary" />}
             content={
               <Fragment>
                 {isAuth && (
