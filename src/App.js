@@ -79,7 +79,7 @@ function App() {
           height: "100vh",
         }}
       >
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <Navigation />
           <Switch>
             <Route path="/" exact>

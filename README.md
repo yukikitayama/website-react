@@ -25,6 +25,14 @@
 - React directory structure
   - [React Architecture: How to Structure and Organize a React Application](https://www.taniarascia.com/react-architecture-directory-structure/)
 
+### Props
+
+- Parameters of components to pass data.
+- Every React component receives one parameter typically named `props`.
+  - `props` is a key-value pair.
+  - Key is the individual parameter name
+  - Value is the data passed from outside component.
+
 ### React Hooks
 
 - Hooks are something starting with `use`.
@@ -99,6 +107,14 @@ const SomeContextProvider = (props) => {
   - Inside the components using useEffect()
   - Inside the action creators.
 - `Thunk` is a function that delays an action until later.
+
+## MUI
+
+- React material user interface
+
+### Card
+
+- [React & Material UI #12: Cards + Cards layout with Grid](https://www.youtube.com/watch?v=UNCq01LNNrg)
 
 ## Reference
 

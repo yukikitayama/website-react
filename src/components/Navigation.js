@@ -29,6 +29,8 @@ const Navigation = () => {
     tabValue = 2;
   } else if (path.includes("fitness")) {
     tabValue = 3;
+  } else if (path.includes("login")) {
+    tabValue = 4;
   }
   const [value, setValue] = useState(tabValue);
 
@@ -100,6 +102,7 @@ const Navigation = () => {
             <Tab label="Skill" component={Link} to={"/skill"} />
             <Tab label="Expense" component={Link} to={"/expense"} />
             <Tab label="Fitness" component={Link} to={"/fitness"} />
+            <Tab label="Login" component={Link} to={"/login"}/>
           </Tabs>
         </Box>
         <ThemeToggle />
