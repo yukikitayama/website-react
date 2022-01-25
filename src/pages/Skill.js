@@ -1,9 +1,12 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 
 import SkillCard from "../components/SkillCard";
 import GoogleCloud from "../assets/google_cloud.png";
 import AWS from "../assets/aws.png";
+import { environment } from '../environments/environments';
+
+const API_URL = environment.apiGatewayUrl;
 
 const DUMMY = [
   {
@@ -21,6 +24,16 @@ const DUMMY = [
 ];
 
 const Skill = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${API_URL}/skill`);
+      const data = await response.json();
+      console.log(data);
+    };
+
+    fetchData();    
+  }, []);
+
   return (
     <Fragment>
       <Grid

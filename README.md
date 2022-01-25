@@ -115,6 +115,15 @@ const SomeContextProvider = (props) => {
 ### Card
 
 - [React & Material UI #12: Cards + Cards layout with Grid](https://www.youtube.com/watch?v=UNCq01LNNrg)
+- Change `<CardHeader>` title size
+  - Use `titleTypographyProps={{variant: 'h1'}}`
+  - [How to apply fontSize to CardHeader title in MUI?](https://stackoverflow.com/questions/55618721/how-to-apply-fontsize-to-cardheader-title-in-mui)
+
+### Typography
+
+- Troubleshoot: `<ul> cannot appear as a descendant of <p>`
+  - Add `component={'span'}` to `<Typography>`.
+  - [<div> cannot appear as a descendant of <p>](https://stackoverflow.com/questions/41928567/div-cannot-appear-as-a-descendant-of-p)
 
 ## Reference
 

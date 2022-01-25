@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -47,16 +46,14 @@ const Dashboard = () => {
         p={2}
         pb={10}
       >
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <DashboardCard
             title={"Todo"}
             subheader={"Things that I need to take action"}
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Show the fetched single expense data to component</li>
-                <li>Allow to modify the item in the Expense table</li>
-                <li>Allow to delete the item in the Expense table</li>
+                <li>Replace dummy data in skill component with the real data from MongoDB</li>
                 <li>Separate sidebar code from Navigation component</li>
                 <li>Connect Redux route state to Tabs state value</li>
               </ul>
@@ -104,38 +101,14 @@ const Dashboard = () => {
             }
             icon={<AccessibiltyNewIcon fontSize="large" color="primary" />}
             content={
-              <Fragment>
-                <p>Mode</p>
-                <ul>
-                  <li>{mode} mode from Redux</li>
-                </ul>
-
-                <p>Screen size</p>
-                <p>Display when screen is wide</p>
-                <Box
-                  sx={{
-                    display: { xs: "none", md: "inline" },
-                    m: 2,
-                    p: 2,
-                    bgcolor: "info.main",
-                    borderRadius: 2,
-                  }}
-                >
-                  Wide screen
-                </Box>
-                <p>Display when screen is narrow</p>
-                <Box
-                  sx={{
-                    display: { xs: "inline", md: "none" },
-                    m: 2,
-                    p: 2,
-                    bgcolor: "success.main",
-                    borderRadius: 2,
-                  }}
-                >
-                  Narrow screen
-                </Box>
-              </Fragment>
+              <ul>
+                <li>
+                  Mode
+                  <ul>
+                    <li>{mode} mode from Redux</li>
+                  </ul>
+                </li>
+              </ul>
             }
           />
         </Grid>
