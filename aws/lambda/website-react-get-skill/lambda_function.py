@@ -62,7 +62,9 @@ def lambda_handler(event, context):
     else:
         # Get data from MongoDB
         posts = []
-        for post in collection.find():
+        # Get all the posts without contents for efficiency
+        # MongoDB ID is included by default
+        for post in collection.find({}, {'category': 1, 'date': 1, 'title': 1}):
             # Use json_util for BSON ID
             post = json.loads(json_util.dumps(post))
             # Extract ID string
