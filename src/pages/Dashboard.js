@@ -53,7 +53,6 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Replace dummy data in skill component with the real data from MongoDB</li>
                 <li>Separate sidebar code from Navigation component</li>
                 <li>Connect Redux route state to Tabs state value</li>
               </ul>

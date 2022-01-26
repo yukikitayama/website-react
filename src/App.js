@@ -12,6 +12,7 @@ import awsconfig from "./aws-exports";
 import Navigation from "./components/Navigation";
 import Dashboard from "./pages/Dashboard";
 import Skill from "./pages/Skill";
+import SkillContent from './pages/SkillContent';
 import Expense from "./pages/Expense";
 import ExpenseNewItem from "./pages/ExpenseNewItem";
 import ExpenseUpdateItem from "./pages/ExpenseUpdateItem";
@@ -90,6 +91,9 @@ function App() {
             </Route>
             <Route path="/skill" exact>
               <Skill />
+            </Route>
+            <Route path="/skill/:id">
+              <SkillContent />
             </Route>
             <Route path="/expense" exact>
               <Expense />

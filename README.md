@@ -13,6 +13,12 @@
   - Only use the `$` prefix when the field name is used in a value, not as a key.
 - Dot notation
   - Access nested field. e.g. `{ '_id': { 'key': 'value' } }` can be `'_id.key'` to access `value`
+- PyMongo finds all but select fields
+  - `database.collection.find({}, {field1: 1, field2: 0})`
+  - The first `{}` is where statement, and the second `{}` is select statement.
+  - `field1` is included, but `field2` is excluded.
+  - MongoDB ID is included by default implicitly.
+  - [How to select a single field for all documents in a MongoDB collection?](https://stackoverflow.com/questions/25589113/how-to-select-a-single-field-for-all-documents-in-a-mongodb-collection)
 
 ## Recharts
 
@@ -24,6 +30,9 @@
 
 - React directory structure
   - [React Architecture: How to Structure and Organize a React Application](https://www.taniarascia.com/react-architecture-directory-structure/)
+- Render HTML string to React component
+  - `$ npm install html-react-parser; import parse from 'html-react-parser'; parse('<p>HTML_STRING<p>');`
+  - [html-react-parser](https://github.com/remarkablemark/html-react-parser)
 
 ### Props
 
@@ -118,12 +127,36 @@ const SomeContextProvider = (props) => {
 - Change `<CardHeader>` title size
   - Use `titleTypographyProps={{variant: 'h1'}}`
   - [How to apply fontSize to CardHeader title in MUI?](https://stackoverflow.com/questions/55618721/how-to-apply-fontsize-to-cardheader-title-in-mui)
+- Clickable card
+  - `<CardActionArea onClick={event => console.log('Clicked')}>`
 
 ### Typography
 
 - Troubleshoot: `<ul> cannot appear as a descendant of <p>`
   - Add `component={'span'}` to `<Typography>`.
   - [<div> cannot appear as a descendant of <p>](https://stackoverflow.com/questions/41928567/div-cannot-appear-as-a-descendant-of-p)
+
+## React Router
+
+- Move to a different page with data
+  - Pass the data as state `useHistory()`, and retrieve the data by `useLocation()`
+  - [How to pass additional data while redirecting to a route in React](https://levelup.gitconnected.com/how-to-pass-additional-data-while-redirecting-to-different-route-f7bf5f95d48c)
+  - [useLocation](https://v5.reactrouter.com/web/api/Hooks/uselocation)
+
+```JavaScript
+import { useHistory, useLocation } from 'react-rounter-dom';
+
+// In component 1
+const history = useHistory();
+history.push({
+  pathname: 'PATH',
+  state: {KEY1: 'VALUE1', KEY2: 'VALUE2'}
+})
+
+// In component 2
+const location = useLocation();
+const {KEY1, KEY2} = location.state;
+``` 
 
 ## Reference
 

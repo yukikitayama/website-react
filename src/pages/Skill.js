@@ -1,41 +1,50 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import SkillCard from "../components/SkillCard";
-import GoogleCloud from "../assets/google_cloud.png";
-import AWS from "../assets/aws.png";
-import { environment } from '../environments/environments';
+import GoogleCloudPng from "../assets/google_cloud.png";
+import AwsJpg from "../assets/aws.jpg";
+import PythonPng from '../assets/python.png';
+import VideoPng from '../assets/video.png';
+import DataPng from '../assets/data.png';
+import WebsitePng from '../assets/website.png'
+import { environment } from "../environments/environments";
 
 const API_URL = environment.apiGatewayUrl;
 
-const DUMMY = [
-  {
-    title: "Title 1",
-    id: "1",
-    category: "Google Cloud",
-    date: "2022-01-23",
-    src: GoogleCloud,
-  },
-  { title: "Title 2", id: "2", category: "AWS", date: "2022-01-24", src: AWS },
-  { title: "Title 2", id: "3", category: "AWS", date: "2022-01-24", src: AWS },
-  { title: "Title 2", id: "4", category: "AWS", date: "2022-01-24", src: AWS },
-  { title: "Title 2", id: "5", category: "AWS", date: "2022-01-24", src: AWS },
-  { title: "Title 2", id: "6", category: "AWS", date: "2022-01-24", src: AWS },
-];
+// Mapping to show icons
+const categoryToIcon = new Map();
+categoryToIcon.set('Google Cloud', GoogleCloudPng);
+categoryToIcon.set('AWS', AwsJpg);
+categoryToIcon.set('Data', DataPng);
+categoryToIcon.set('Python', PythonPng);
+categoryToIcon.set('Video', VideoPng);
+categoryToIcon.set('Website', WebsitePng);
 
 const Skill = () => {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+
       const response = await fetch(`${API_URL}/skill`);
       const data = await response.json();
-      console.log(data);
+      setPosts(data.posts);
+
+      // console.log(data.posts);
+
+      setIsLoading(false);
     };
 
-    fetchData();    
+    fetchData();
   }, []);
 
   return (
     <Fragment>
+      {isLoading && <LinearProgress color="secondary" />}
       <Grid
         container
         spacing={2}
@@ -44,16 +53,18 @@ const Skill = () => {
         p={2}
         pb={10}
       >
-        {DUMMY.map((data) => (
-          <Grid item xs={12} md={6} key={data.id}>
-            <SkillCard
-              alt={data.category}
-              src={data.src}
-              title={data.title}
-              subheader={`${data.category} | ${data.date}`}
-            />
-          </Grid>
-        ))}
+        {!isLoading &&
+          posts.map((post) => (
+            <Grid item xs={12} md={6} key={post._id}>
+              <SkillCard
+                id={post._id}
+                alt={post.category}
+                title={post.title}
+                src={categoryToIcon.get(post.category)}
+                subheader={`${post.category} | ${post.date}`}
+              />
+            </Grid>
+          ))}
       </Grid>
     </Fragment>
   );
