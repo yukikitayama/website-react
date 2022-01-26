@@ -16,7 +16,7 @@ const ThemeToggle = () => {
   // mode variable is not stored in browser storage,
   // so it needs to set a default mode.
   if (savedMode == null) {
-    savedMode = 'light';
+    savedMode = 'dark';
   }
   dispatch(modeActions.initializeMode(savedMode));
   

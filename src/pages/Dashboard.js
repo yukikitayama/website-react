@@ -53,6 +53,7 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
+                <li>Link components to the side bar menu, otherwise won't work in mobile</li>
                 <li>Separate sidebar code from Navigation component</li>
                 <li>Connect Redux route state to Tabs state value</li>
               </ul>

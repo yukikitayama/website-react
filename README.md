@@ -96,6 +96,11 @@ const SomeContextProvider = (props) => {
   - Not optimized for high frequency changes.
     - Redux is better
 
+### Deployment
+
+- `npm run build`
+  - Production code is in `build` folder
+
 ## Redux
 
 - State management system for cross-component or app-wide state.

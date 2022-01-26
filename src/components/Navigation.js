@@ -1,21 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import { Link, useHistory } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Drawer,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Tabs,
+  Tab,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 
 import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
+  const history = useHistory();
   // Side menu
   const [state, setState] = useState(false);
   // Tabs menu
@@ -49,6 +53,11 @@ const Navigation = () => {
     setState(open);
   };
 
+  const drawerHandler = (event) => {
+    const page = event.target.textContent;
+    history.push(`/${page.toLowerCase()}`);
+  };
+
   const list = (
     <Box
       sx={{ width: 200 }}
@@ -57,11 +66,15 @@ const Navigation = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Skill", "Expense", "Fitness"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {["Dashboard", "Skill", "Expense", "Fitness", "Login"].map(
+          (text, index) => (
+            <ListItem disablePadding key={text}>
+              <ListItemButton onClick={(event) => drawerHandler(event)}>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );
@@ -102,7 +115,7 @@ const Navigation = () => {
             <Tab label="Skill" component={Link} to={"/skill"} />
             <Tab label="Expense" component={Link} to={"/expense"} />
             <Tab label="Fitness" component={Link} to={"/fitness"} />
-            <Tab label="Login" component={Link} to={"/login"}/>
+            <Tab label="Login" component={Link} to={"/login"} />
           </Tabs>
         </Box>
         <ThemeToggle />
