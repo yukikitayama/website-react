@@ -1,8 +1,6 @@
 # Website by React
 
-## Implementation
-
-- xxx
+- [yukikitayama.com](https://yukikitayama.com)
 
 ## MongoDB
 
@@ -20,6 +18,14 @@
   - MongoDB ID is included by default implicitly.
   - [How to select a single field for all documents in a MongoDB collection?](https://stackoverflow.com/questions/25589113/how-to-select-a-single-field-for-all-documents-in-a-mongodb-collection)
 
+## AWS
+
+### Amplify
+
+- `Access denied` error when refresh page in production
+  - The error is caued by the Amplify setting.
+  - [Getting an "Access Denied" error when I reload my React app on AWS Amplify](https://stackoverflow.com/questions/63025997/getting-an-access-denied-error-when-i-reload-my-react-app-on-aws-amplify)
+
 ## Recharts
 
 - `<ReferenceLine />`
@@ -33,6 +39,8 @@
 - Render HTML string to React component
   - `$ npm install html-react-parser; import parse from 'html-react-parser'; parse('<p>HTML_STRING<p>');`
   - [html-react-parser](https://github.com/remarkablemark/html-react-parser)
+- Start React app
+  - `$ npm start`
 
 ### Props
 
@@ -100,6 +108,10 @@ const SomeContextProvider = (props) => {
 
 - `npm run build`
   - Production code is in `build` folder
+
+### Animation
+
+- [react-transition-group](https://github.com/reactjs/react-transition-group)
 
 ## Redux
 
