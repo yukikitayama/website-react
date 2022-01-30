@@ -50,7 +50,7 @@ const Skill = () => {
         spacing={2}
         rowSpacing={2}
         justifyContent="center"
-        p={2}
+        pt={2}
         pb={10}
       >
         {!isLoading &&

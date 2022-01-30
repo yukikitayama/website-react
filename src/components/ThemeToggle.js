@@ -29,7 +29,7 @@ const ThemeToggle = () => {
   return (
     <Fragment>
       <Brightness7Icon />
-      <Switch checked={savedMode === 'dark'} onChange={toggleModeHandler} color="secondary" />
+      <Switch checked={savedMode === 'dark'} onChange={toggleModeHandler} color="primary" />
       <Brightness4Icon />
       {/* <p>{mode} mode</p> */}
     </Fragment>

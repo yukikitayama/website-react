@@ -33,6 +33,7 @@ const ExpenseNewItem = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory();
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const idToken = useSelector((state) => state.auth.token);
 
   const dateChangeHandler = (newValue) => {
     setDate(newValue);
@@ -74,6 +75,8 @@ const ExpenseNewItem = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // This authorization is configured by Amazon Cognito and Amazon API Gateway
+        "Authorization": idToken
       },
       body: JSON.stringify({
         date: yyyyMmDd,

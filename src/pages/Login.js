@@ -48,6 +48,17 @@ const Login = () => {
 
     try {
       const signInResponse = await Auth.signIn(email, password);
+      
+      // console.log(signInResponse);
+
+      // Only first time
+      // if (signInResponse.challengeName === 'NEW_PASSWORD_REQUIRED') {
+      //   const response = await Auth.completeNewPassword(
+      //     signInResponse,
+      //     'NEW_PASSWORD' // Replace it with the new password
+      //   );
+      // }
+      
       const idToken = signInResponse.signInUserSession.idToken;
       const jwtToken = idToken.jwtToken;
       // Type: number, unit: second, meaning: Datetime when the ID expires
@@ -82,8 +93,10 @@ const Login = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
+        pt={2}
+        pb={10}
       >
-        <Grid item sx={{ width: { xs: "100%", md: "70%" }, mt: 3 }}>
+        <Grid item sx={{ width: { xs: "100%", md: "70%" }}}>
           <form onSubmit={formSubmissionHandler}>
             <Card>
               <CardHeader title="Login" />

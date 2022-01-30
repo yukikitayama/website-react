@@ -1,4 +1,22 @@
 {
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-websitereact-main-232311-authRole",
+      "UnauthRoleArn": "arn:aws:iam::018203729878:role/amplify-websitereact-main-232311-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::018203729878:role/amplify-websitereact-main-232311-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-websitereact-main-232311-deployment",
+      "UnauthRoleName": "amplify-websitereact-main-232311-unauthRole",
+      "StackName": "amplify-websitereact-main-232311",
+      "StackId": "arn:aws:cloudformation:us-west-1:018203729878:stack/amplify-websitereact-main-232311/42c73ed0-8091-11ec-a34a-02d5629fc0ab",
+      "AmplifyAppId": "dg9xgbbu9zmig"
+    },
+    "categories": {
+      "auth": {
+        "websitereactef4b3d57": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-websitereact-dev-182920-authRole",

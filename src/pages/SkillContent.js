@@ -19,7 +19,7 @@ const SkillContent = () => {
 
   return (
     <Fragment>
-      <Grid container p={4} pb={10} justifyContent="center">
+      <Grid container pt={2} pb={10} justifyContent="center">
         <Grid item xs={12}>
           <Card>
             <CardHeader

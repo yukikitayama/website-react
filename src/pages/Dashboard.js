@@ -7,6 +7,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 import AccessibiltyNewIcon from "@mui/icons-material/AccessibilityNew";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Auth as AwsAuth } from "aws-amplify";
+// import ResponsiveEmbed from "react-responsive-embed";
 
 import DashboardCard from "../components/DashboardCard";
 import { authActions } from "../store/auth-slice";
@@ -43,9 +44,12 @@ const Dashboard = () => {
         spacing={2}
         rowSpacing={2}
         justifyContent="center"
-        p={2}
+        pt={2}
         pb={10}
       >
+        {/* <Grid item xs={12}>
+          <ResponsiveEmbed src="https://docs.google.com/presentation/d/e/2PACX-1vSlRNFJdKh4c4586Ohh68tiXleeYzq7o-HYOgUFwW5YkzI9mtI1bPlpcwZBkKbqj_6bgTmpaIKdg9Eb/embed" allowFullScreen />
+        </Grid> */}
         <Grid item xs={12} md={6} >
           <DashboardCard
             title={"Todo"}
@@ -53,9 +57,9 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Remove left and right padding spaces</li>
-                <li>Modify AWS Ampified setting to avoid showing access denied when refreshing a page</li>
-                <li>Link components to the side bar menu, otherwise won't work in mobile</li>
+                <li>Develop API method to update or delete the existing expense</li>
+                <li>Add animation to tabulate posts in skill component</li>
+                <li>Supress blue color of HTML a link tag</li>
                 <li>Separate sidebar code from Navigation component</li>
                 <li>Connect Redux route state to Tabs state value</li>
               </ul>
@@ -118,10 +122,14 @@ const Dashboard = () => {
         <Grid item xs={12} md={6}>
           <DashboardCard
             title={"Authentication"}
-            subheader={"Checking login status"}
+            subheader={"Checking login status and authorization to modify data"}
             icon={<VpnKeyIcon fontSize="large" color="primary" />}
             content={
               <Fragment>
+                <ul>
+                  <li>Cannot submit API requests to modify expense data unless logged in</li>
+                  <li>API Gateway method to update expense data cannot be used without ID token which you can get from Amazon Cognito login</li>
+                </ul>
                 {isAuth && (
                   <Button
                     variant="contained"
