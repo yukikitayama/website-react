@@ -6,11 +6,12 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import WarningIcon from "@mui/icons-material/Warning";
 import AccessibiltyNewIcon from "@mui/icons-material/AccessibilityNew";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import HomeIcon from "@mui/icons-material/Home";
 import { Auth as AwsAuth } from "aws-amplify";
-// import ResponsiveEmbed from "react-responsive-embed";
 
 import DashboardCard from "../components/DashboardCard";
 import { authActions } from "../store/auth-slice";
+import ArchitecturePng from "../assets/website_react_architecture.png";
 
 const Dashboard = () => {
   const mode = useSelector((state) => state.mode.mode);
@@ -47,17 +48,25 @@ const Dashboard = () => {
         pt={2}
         pb={10}
       >
-        {/* <Grid item xs={12}>
-          <ResponsiveEmbed src="https://docs.google.com/presentation/d/e/2PACX-1vSlRNFJdKh4c4586Ohh68tiXleeYzq7o-HYOgUFwW5YkzI9mtI1bPlpcwZBkKbqj_6bgTmpaIKdg9Eb/embed" allowFullScreen />
-        </Grid> */}
-        <Grid item xs={12} md={6} >
+        <Grid item xs={12} md={6}>
+          <DashboardCard
+            title={"Architecture"}
+            subheader={"Components to run this website"}
+            icon={<HomeIcon fontSize="large" color="primary" />}
+            image={ArchitecturePng}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
           <DashboardCard
             title={"Todo"}
             subheader={"Things that I need to take action"}
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Develop API method to update or delete the existing expense</li>
+                <li>Set up custom domain name to API Gateway</li>
+                <li>
+                  Develop API method to update or delete the existing expense
+                </li>
                 <li>Add animation to tabulate posts in skill component</li>
                 <li>Supress blue color of HTML a link tag</li>
                 <li>Separate sidebar code from Navigation component</li>
@@ -127,8 +136,14 @@ const Dashboard = () => {
             content={
               <Fragment>
                 <ul>
-                  <li>Cannot submit API requests to modify expense data unless logged in</li>
-                  <li>API Gateway method to update expense data cannot be used without ID token which you can get from Amazon Cognito login</li>
+                  <li>
+                    Cannot submit API requests to modify expense data unless
+                    logged in
+                  </li>
+                  <li>
+                    API Gateway method to update expense data cannot be used
+                    without ID token from Amazon Cognito login
+                  </li>
                 </ul>
                 {isAuth && (
                   <Button
