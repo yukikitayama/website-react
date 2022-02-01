@@ -185,6 +185,15 @@ const location = useLocation();
 const {KEY1, KEY2} = location.state;
 ``` 
 
+## JavaScript
+
+- [Calculate last day of month](https://stackoverflow.com/questions/222309/calculate-last-day-of-month)
+
+## TypeScript
+
+- `JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.`
+  - Close VS code and restart it.
+
 ## Reference
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

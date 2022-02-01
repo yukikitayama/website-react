@@ -63,6 +63,9 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
+                <li>Make an API to get daily expense of the current month for expense trend component</li>
+                <li>Remove memo column from expense table</li>
+                <li>Make monthly expense start date and end date dynamic</li>
                 <li>I want the place to show suggestion in expense item component</li>
                 <li>Make table in expense a separate component</li>
                 <li>

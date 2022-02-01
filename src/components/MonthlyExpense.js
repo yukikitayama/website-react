@@ -67,7 +67,7 @@ const MonthlyExpense = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="totalExpense" fill="#8884d8" />
+            <Bar dataKey="totalExpense" fill="#80cbc4" />
           </BarChart>
         </ResponsiveContainer>
       )}

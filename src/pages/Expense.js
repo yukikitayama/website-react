@@ -21,6 +21,7 @@ import ExpenseCard from "../components/ExpenseCard";
 import TablePaginationActions from "../components/TablePaginationActions";
 import { environment } from "../environments/environments";
 import MonthlyExpense from "../components/MonthlyExpense";
+import ExpenseTrend from '../components/ExpenseTrend';
 
 const API_URL = environment.apiGatewayUrl;
 
@@ -81,7 +82,7 @@ const Expense = () => {
           <ExpenseCard content={<MonthlyExpense />} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <ExpenseCard title={"Current Trend"} />
+          <ExpenseCard content={<ExpenseTrend />} />
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h2" component="div" align="center">
