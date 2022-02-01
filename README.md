@@ -5,6 +5,8 @@
 - API URL
   - [https://api.yukikitayama.com](https://api.yukikitayama.com)
 
+![Architecture](https://github.com/yukikitayama/website-react/blob/main/src/assets/website_react_architecture.png)
+
 ## MongoDB
 
 - Difference between `$match` and `$filter`

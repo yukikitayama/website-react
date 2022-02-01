@@ -63,7 +63,8 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Set up custom domain name to API Gateway</li>
+                <li>I want the place to show suggestion in expense item component</li>
+                <li>Make table in expense a separate component</li>
                 <li>
                   Develop API method to update or delete the existing expense
                 </li>
