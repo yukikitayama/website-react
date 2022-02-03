@@ -62,6 +62,53 @@ def lambda_handler(event, context):
             })
         }
         
+    # Get daily total expense
+    elif (
+        event['queryStringParameters'] is not None
+        and 'type' in event['queryStringParameters']
+        and event['queryStringParameters']['type'] == 'daily'
+        and 'startDate' in event['queryStringParameters']
+        and 'endDate' in event['queryStringParameters']
+    ):
+        start_date = event['queryStringParameters']['startDate']
+        start_date = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date = event['queryStringParameters']['endDate']
+        end_date = datetime.strptime(end_date, '%Y-%m-%d')
+
+        pipeline = [
+            # Convert date string to datetime
+            { '$addFields': { 'convertedDate': { '$toDate': '$date' } } },
+            # Filter documents by start date and end date
+            { '$match': { 'convertedDate': { '$gte': start_date, '$lte': end_date } } },
+            # Calculate daily total
+            { '$group': {
+                '_id': {
+                    'date': { '$dateToString': { 'format': '%Y-%m-%d', 'date': '$convertedDate' } }
+                },
+                'totalExpense': { '$sum': '$amount' }
+            } },
+            # Sort by calendar
+            { '$sort': { '_id.date': 1 } }
+        ]
+        
+        expenses = []
+        for expense in collection.aggregate(pipeline):
+            date = expense['_id']['date']
+            expense['date'] = date
+            del expense['_id']
+            expense['totalExpense'] = round(expense['totalExpense'], 2)
+            expenses.append(expense)
+
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'expenses': expenses
+            })
+        }
+        
     # Get monthly total expense
     elif (
         event['queryStringParameters'] is not None
@@ -77,7 +124,7 @@ def lambda_handler(event, context):
             # Convert date string to datetime
             { '$addFields': { 'convertedDate': { '$toDate': '$date' } } },
             # Filter documents by start date and end date
-            { '$match': { 'convertedDate': {'$gte': start_date, '$lt': end_date} } },
+            { '$match': { 'convertedDate': {'$gte': start_date, '$lte': end_date} } },
             # Calculate monthly total
             { '$group': {
                 '_id': { 
@@ -142,15 +189,22 @@ if __name__ == '__main__':
     #         'id': '617616e4ee56f35a0a4cfd03'
     #     }
     # }
-    event = {
-        'queryStringParameters': {
-            'startDate': '2021-10-01',
-            'endDate': '2022-02-01'
-        }
-    }
+    # event = {
+    #     'queryStringParameters': {
+    #         'startDate': '2021-10-01',
+    #         'endDate': '2022-02-01'
+    #     }
+    # }
     # event = {
     #     'queryStringParameters': {
     #         'test': 1
     #     }
     # }
+    event = {
+        'queryStringParameters': {
+            'type': 'daily',
+            'startDate': '2022-02-01',
+            'endDate': '2022-02-02'
+        }
+    }
     pprint.pprint(lambda_handler(event, ''))
