@@ -25,9 +25,19 @@ const MonthlyExpense = () => {
     const fetchData = async () => {
       setIsLoading(true);
 
+      // Start date is the first day of a 6 months-ago month
+      var startDate = new Date();
+      startDate.setMonth(startDate.getMonth() - 6);
+      startDate = new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60 * 1000);
+      startDate.setDate(1);
+      startDate = startDate.toISOString().split('T')[0];
+      // End date is today
+      var endDate = new Date();
+      endDate = (new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60 * 1000)).toISOString().split('T')[0];
+
       try {
         const response = await fetch(
-          `${API_URL}/expense?startDate=2021-10-01&endDate=2022-02-01`
+          `${API_URL}/expense?startDate=${startDate}&endDate=${endDate}`
         );
 
         if (!response.ok) {

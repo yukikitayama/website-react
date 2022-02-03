@@ -188,6 +188,12 @@ const {KEY1, KEY2} = location.state;
 ## JavaScript
 
 - [Calculate last day of month](https://stackoverflow.com/questions/222309/calculate-last-day-of-month)
+- Make `YYYY-MM-DD` in local timezone
+  - `const yyyyMmDd = (new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)).toISOString().split("T")[0];`
+  - getTime() returns milliseconds since Unix Epoch
+  - getTimezoneOffset() returns minutes from UTC
+  - Newly created Date object has the same date and time, but in UTC
+  - [Format JavaScript date as yyyy-mm-dd](https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd)
 
 ## TypeScript
 
