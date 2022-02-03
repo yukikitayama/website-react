@@ -1,4 +1,4 @@
-# Website by React
+# Website by React and AWS
 
 - Website URL
   - [https://yukikitayama.com](https://yukikitayama.com)
@@ -194,6 +194,8 @@ const {KEY1, KEY2} = location.state;
   - getTimezoneOffset() returns minutes from UTC
   - Newly created Date object has the same date and time, but in UTC
   - [Format JavaScript date as yyyy-mm-dd](https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd)
+- Merge two JSON objects by key
+  - [merge two json object based on key value in javascript](https://stackoverflow.com/questions/30093561/merge-two-json-object-based-on-key-value-in-javascript)
 
 ## TypeScript
 
