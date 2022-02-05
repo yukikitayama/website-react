@@ -143,6 +143,8 @@ const ExpenseNewItem = () => {
                         <MenuItem value="dryer">Dryer</MenuItem>
                         <MenuItem value="rent">Rent</MenuItem>
                         <MenuItem value="google fi">Google Fi</MenuItem>
+                        <MenuItem value="cloud computing">Cloud computing</MenuItem>
+                        <MenuItem value="education">Education</MenuItem>
                       </Select>
                       <FormHelperText>Required</FormHelperText>
                     </FormControl>
