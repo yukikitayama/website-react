@@ -77,13 +77,17 @@ def lambda_handler(event, context):
         tags = item['tags']
         for tag in tags:
             tag_to_count[tag] += 1
+            
+    count_tag = []
+    for k, v in sorted(tag_to_count.items(), key=lambda x: x[1], reverse=True):
+        count_tag.append({ 'tag': k, 'count': v})
 
     # Upload to MongoDB
     document = {}
     document['from-date'] = from_datetime
     document['to-date'] = to_datetime
     document['count-question'] = count_question
-    document['tag-to-count'] = tag_to_count
+    document['count-tag'] = count_tag
     document['creation-datetime'] = datetime.utcnow()
     result = collection.insert_one(document)
     print(f'Document ID: {result.inserted_id}')
