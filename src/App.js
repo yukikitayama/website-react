@@ -18,6 +18,7 @@ import ExpenseNewItem from "./pages/ExpenseNewItem";
 import ExpenseUpdateItem from "./pages/ExpenseUpdateItem";
 import Fitness from "./pages/Fitness";
 import Login from "./pages/Login";
+import Trend from './pages/Trend';
 import { retrieveStoredToken } from './utils/helpers';
 import { authActions } from './store/auth-slice';
 // import TestPage from "./pages/TestPage";
@@ -88,6 +89,9 @@ function App() {
             </Route>
             <Route path="/dashboard" exact>
               <Dashboard />
+            </Route>
+            <Route path="/trend" exact>
+              <Trend />
             </Route>
             <Route path="/skill" exact>
               <Skill />

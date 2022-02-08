@@ -4,6 +4,7 @@ aws/lambda/*/package/
 aws/lambda/*/*.zip
 # src/environments/
 .vscode/
+post/
 
 # dependencies
 /node_modules

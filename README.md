@@ -123,6 +123,24 @@ const SomeContextProvider = (props) => {
   - Complicated
 - [react-router-transition](https://github.com/maisano/react-router-transition)
 
+### Test
+
+- `$ npm test`
+- Type of test
+  - `Unit test`
+    - Test the individual building blocks (functions, components) in isolation
+  - `Integration test`
+    - Test the combination of multiple building blocks
+  - `End-to-End (e2e) test`
+    - Test complete scenarios in app as the user would experience
+- `Three A's`
+  - `Arrange`: Set up the test data, test conditions, and test environment
+  - `Act`: Run logic that should be tested
+  - `Assert`: Compare execution results with expected results
+- `find`, instead of `get`, returns promise
+- [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+
 ## Redux
 
 - State management system for cross-component or app-wide state.
@@ -162,6 +180,11 @@ const SomeContextProvider = (props) => {
 - Troubleshoot: `<ul> cannot appear as a descendant of <p>`
   - Add `component={'span'}` to `<Typography>`.
   - [<div> cannot appear as a descendant of <p>](https://stackoverflow.com/questions/41928567/div-cannot-appear-as-a-descendant-of-p)
+
+### Tabs
+
+- Error: The value provided to the Tabs component is invalid. The Tab with this value (0) is not part of the document layout. Make sure the tab item is present in the document or that it's not display none.
+- [Hide component that renders a Tabs](https://stackoverflow.com/questions/69024833/hide-component-that-renders-a-tabs)
 
 ## React Router
 

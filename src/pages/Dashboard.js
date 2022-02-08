@@ -63,9 +63,7 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Make an API to get daily expense of the current month for expense trend component</li>
-                <li>Remove memo column from expense table</li>
-                <li>Make monthly expense start date and end date dynamic</li>
+                <li>Remove type column from expense table</li>
                 <li>I want the place to show suggestion in expense item component</li>
                 <li>Make table in expense a separate component</li>
                 <li>
@@ -93,6 +91,9 @@ const Dashboard = () => {
                   When decrease screen width and header tabs disappear, the
                   error "MUI: The `value` provided to the Tabs component is
                   invalid." appears in console
+                  <ul>
+                    <li>Solved by using visibity css instead of display css.</li>
+                  </ul>
                 </li>
                 <li>
                   When remove mode variable in local storage, app initialization

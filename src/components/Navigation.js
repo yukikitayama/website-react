@@ -20,9 +20,11 @@ import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const history = useHistory();
-  // Side menu
-  const [state, setState] = useState(false);
-  // Tabs menu
+
+  // Drawer side menu state
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // State to highlight one of tabs to indicate which page a user is currently at
   const path = window.location.pathname;
   let tabValue = 0;
   if (path.includes("dashboard")) {
@@ -42,6 +44,7 @@ const Navigation = () => {
     setValue(newValue);
   };
 
+  // Open drawer side menu by receiving open (True boolean)
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -50,14 +53,16 @@ const Navigation = () => {
       return;
     }
 
-    setState(open);
+    setIsDrawerOpen(open);
   };
 
-  const drawerHandler = (event) => {
+  // Function to route a user to a page when an item is clicked in drawer side menu
+  const drawerRouteToPageHandler = (event) => {
     const page = event.target.textContent;
     history.push(`/${page.toLowerCase()}`);
   };
 
+  // Left side drawer content when drawer is open
   const list = (
     <Box
       sx={{ width: 200 }}
@@ -66,10 +71,12 @@ const Navigation = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Dashboard", "Skill", "Expense", "Fitness", "Login"].map(
+        {["Dashboard", "Trend", "Skill", "Expense", "Fitness", "Login"].map(
           (text, index) => (
             <ListItem disablePadding key={text}>
-              <ListItemButton onClick={(event) => drawerHandler(event)}>
+              <ListItemButton
+                onClick={(event) => drawerRouteToPageHandler(event)}
+              >
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -100,7 +107,7 @@ const Navigation = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" >
             Yuki Kitayama
           </Typography>
           <Tabs
@@ -109,9 +116,17 @@ const Navigation = () => {
             // textColor="inherit"
             textColor="secondary"
             indicatorColor="secondary"
-            sx={{ display: { xs: "none", md: "block" }, pt: 1, pl: 2 }}
+            variant="scrollable"
+            sx={{
+              visibility: { xs: "hidden", md: "visible" },
+              width: { xs: 0, md: "auto" },
+              height: { xs: 0, md: "auto" },
+              pt: 1,
+              pl: 1
+            }}
           >
             <Tab label="Dashboard" component={Link} to={"/dashboard"} />
+            <Tab label="Trend" component={Link} to={"/trend"} />
             <Tab label="Skill" component={Link} to={"/skill"} />
             <Tab label="Expense" component={Link} to={"/expense"} />
             <Tab label="Fitness" component={Link} to={"/fitness"} />
@@ -119,7 +134,7 @@ const Navigation = () => {
           </Tabs>
         </Box>
         <ThemeToggle />
-        <Drawer anchor="left" open={state} onClose={toggleDrawer(false)}>
+        <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
           {list}
         </Drawer>
       </Toolbar>
