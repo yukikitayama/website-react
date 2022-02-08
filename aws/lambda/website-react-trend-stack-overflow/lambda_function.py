@@ -52,7 +52,7 @@ def lambda_handler(event, context):
     
     data = []
     for k, v in sorted(counts.items(), key=lambda x: x[1], reverse=True)[:TOP]:
-        data.append({ 'tag': k, 'count': v })
+        data.append({ 'name': k, 'count': v })
         
     return {
         'statusCode': 200,
