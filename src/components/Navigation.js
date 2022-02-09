@@ -29,14 +29,16 @@ const Navigation = () => {
   let tabValue = 0;
   if (path.includes("dashboard")) {
     tabValue = 0;
-  } else if (path.includes("skill")) {
+  } else if (path.includes("trend")) {
     tabValue = 1;
-  } else if (path.includes("expense")) {
+  } else if (path.includes("skill")) {
     tabValue = 2;
-  } else if (path.includes("fitness")) {
+  } else if (path.includes("expense")) {
     tabValue = 3;
-  } else if (path.includes("login")) {
+  } else if (path.includes("fitness")) {
     tabValue = 4;
+  } else if (path.includes("login")) {
+    tabValue = 5;
   }
   const [value, setValue] = useState(tabValue);
 
@@ -116,12 +118,12 @@ const Navigation = () => {
             // textColor="inherit"
             textColor="secondary"
             indicatorColor="secondary"
-            variant="scrollable"
+            // variant="scrollable"
             sx={{
               visibility: { xs: "hidden", md: "visible" },
               width: { xs: 0, md: "auto" },
               height: { xs: 0, md: "auto" },
-              pt: 1,
+              pt: 0.5,
               pl: 1
             }}
           >
