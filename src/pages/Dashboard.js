@@ -87,6 +87,7 @@ const Dashboard = () => {
             icon={<WarningIcon fontSize="large" color="primary" />}
             content={
               <ul>
+                <li>Sometimes label of pie chart in Trend component doesn't show up.</li>
                 <li>
                   When decrease screen width and header tabs disappear, the
                   error "MUI: The `value` provided to the Tabs component is

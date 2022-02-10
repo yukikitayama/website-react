@@ -22,6 +22,12 @@
   - `field1` is included, but `field2` is excluded.
   - MongoDB ID is included by default implicitly.
   - [How to select a single field for all documents in a MongoDB collection?](https://stackoverflow.com/questions/25589113/how-to-select-a-single-field-for-all-documents-in-a-mongodb-collection)
+- `update_one(filter, update)`
+  - Update document
+    - [How do I update a Mongo document after inserting it?](https://stackoverflow.com/questions/4372797/how-do-i-update-a-mongo-document-after-inserting-it)
+  - `filter` is dictionary to match document. Use `{ '_id': DOCUMENT_ID }`
+  - `update` is also dictionary to set a new filed or delete a field
+    - Use `{ '$set': { 'NEW_FIELD_NAME': VALUE }, '$unset': { 'EXISTING_FIELD': 1 } }` to add AND delete fields.
 
 ## AWS
 
@@ -36,6 +42,9 @@
 - `<ReferenceLine />`
   - Add a horizontal or vertical line to a plot as reference
   - [ReferenceLine](https://recharts.org/en-US/api/ReferenceLine)
+- `<Pie />` shows name as label, not value
+  - Need to make a function and set the label to pointt to the function
+  - [Rechart - adding labels to charts](https://stackoverflow.com/questions/56104004/rechart-adding-labels-to-charts)
 
 ## React
 
