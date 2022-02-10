@@ -12,7 +12,7 @@ DATABASE = 'stack-exchange'
 COLLECTION = 'stack-overflow'
 START = datetime.utcnow() - timedelta(days=2)
 END = START + timedelta(days=1)
-TOP = 100
+TOP = 30
 
 
 def get_secret(secret_id: str, region_name: str) -> dict:
