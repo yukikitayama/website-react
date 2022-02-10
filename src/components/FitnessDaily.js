@@ -30,7 +30,7 @@ const FitnessDaily = (props) => {
       <LineChart data={dailyData} margin={{ top: 10, right: 30, left: 0, bottom: 10}}>
         <XAxis dataKey="date" />
         <YAxis />
-        <Line dataKey="value" dot={false} stroke="#80cbc4" strokeWidth={3} />
+        <Line type="monotone" dataKey="value" dot={false} stroke="#80cbc4" strokeWidth={3} />
         <ReferenceLine y={props.target} stroke="#cddc39" strokeDasharray="3 3" />
       </LineChart>
     </ResponsiveContainer>
