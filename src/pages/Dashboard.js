@@ -63,6 +63,7 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
+                <li>Move either expense or skill data to Redis.</li>
                 <li>Remove type column from expense table</li>
                 <li>I want the place to show suggestion in expense item component</li>
                 <li>Make table in expense a separate component</li>

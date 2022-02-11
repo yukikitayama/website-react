@@ -228,6 +228,8 @@ const {KEY1, KEY2} = location.state;
   - [Format JavaScript date as yyyy-mm-dd](https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd)
 - Merge two JSON objects by key
   - [merge two json object based on key value in javascript](https://stackoverflow.com/questions/30093561/merge-two-json-object-based-on-key-value-in-javascript)
+- `ARRAY.filter()`
+  - Automatically return a new array. It doesn't alter the old array.
 
 ## TypeScript
 

@@ -145,6 +145,7 @@ const ExpenseNewItem = () => {
                         <MenuItem value="google fi">Google Fi</MenuItem>
                         <MenuItem value="cloud computing">Cloud computing</MenuItem>
                         <MenuItem value="education">Education</MenuItem>
+                        <MenuItem value="leisure">Leisure</MenuItem>
                       </Select>
                       <FormHelperText>Required</FormHelperText>
                     </FormControl>
