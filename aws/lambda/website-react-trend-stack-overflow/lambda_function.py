@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from dateutil import parser
 import boto3
 from datetime import datetime, timedelta
 import collections
@@ -39,6 +40,44 @@ collection = db[COLLECTION]
 
 def lambda_handler(event, context):
     
+    headers = { 'Access-Control-Allow-Origin': '*' }
+    
+    if (
+        'queryStringParameters' in event
+        and event['queryStringParameters'] is not None
+        and 'top' in event['queryStringParameters']
+    ):
+        # Top and bottom indices are 1-based index and inclusive
+        top = int(event['queryStringParameters']['top'])
+        bottom = int(event['queryStringParameters']['bottom'])
+        start = parser.parse(event['queryStringParameters']['start'])
+        end = parser.parse(event['queryStringParameters']['end'])
+        
+        # print(f'start: {start}, end: {end}')
+        
+        filter_ = {
+            'from-date': { '$gte': start },
+            'to-date': { '$lte': end }
+        }
+        projection = { 'count-tag': 1 }
+        
+        counts = collections.defaultdict(int)
+        for doc in collection.find(filter_, projection):
+            for count_tag in doc['count-tag']:
+                counts[count_tag['tag']] += count_tag['count']
+                
+        response_data = []
+        for k, v in sorted(counts.items(), key=lambda x: x[1], reverse=True)[(top - 1):(bottom + 1)]:
+            response_data.append({ 'name': k, 'count': v })
+            
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({ 'data': response_data })
+        }
+            
+    
+    
     query = { 
         'from-date': { '$gte': START }, 
         'to-date': { '$lte': END } 
@@ -56,10 +95,18 @@ def lambda_handler(event, context):
         
     return {
         'statusCode': 200,
-        'headers': { 'Access-Control-Allow-Origin': '*' },
+        'headers': headers,
         'body': json.dumps({ 'data': data })
     }
 
 
 if __name__ == '__main__':
-    pprint.pprint(lambda_handler('', ''))
+    event = {
+        'queryStringParameters': {
+            'top': 1,
+            'bottom': 10,
+            'start': '2022-02-07T00:00:00Z',
+            'end': '2022-02-10T12:00:00Z'
+        }
+    }
+    pprint.pprint(lambda_handler(event, ''))
