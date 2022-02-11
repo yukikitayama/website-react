@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { teal, amber } from "@mui/material/colors";
+import { teal, lime } from "@mui/material/colors";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -57,7 +57,7 @@ function App() {
               main: teal[200],
             },
             secondary: {
-              main: amber[200],
+              main: lime[200],
             },
           }
         : {
@@ -65,7 +65,7 @@ function App() {
               main: teal[200],
             },
             secondary: {
-              main: amber[200],
+              main: lime[200],
             },
           }),
     },
