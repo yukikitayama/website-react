@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 import { Typography, Box, CircularProgress } from "@mui/material";
 import {
   ComposedChart,
@@ -20,6 +21,7 @@ const API_URL = environment.apiGatewayUrl;
 const ExpenseTrend = () => {
   const [expense, setExpense] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const mode = useSelector((state) => state.mode.mode);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +92,12 @@ const ExpenseTrend = () => {
         <ComposedChart data={expense}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis label={{
+            value: 'USD',
+            angle: -90,
+            position: 'insideLeft',
+            fill: mode === 'dark' ? '#ffffff' : '#000000'
+          }}/>
           <Legend />
           <Area
             type="monotone"

@@ -146,6 +146,10 @@ const ExpenseNewItem = () => {
                         <MenuItem value="cloud computing">Cloud computing</MenuItem>
                         <MenuItem value="education">Education</MenuItem>
                         <MenuItem value="leisure">Leisure</MenuItem>
+                        <MenuItem value="transportation">Transportation</MenuItem>
+                        <MenuItem value="electronics">Electronics</MenuItem>
+                        <MenuItem value="clothing">Clothing</MenuItem>
+                        <MenuItem value="home internet">Home internet</MenuItem>
                       </Select>
                       <FormHelperText>Required</FormHelperText>
                     </FormControl>

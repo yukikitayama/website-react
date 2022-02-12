@@ -118,6 +118,14 @@ const SomeContextProvider = (props) => {
   - Not optimized for high frequency changes.
     - Redux is better
 
+### useCallback()
+
+- Hook to save a function that doesn't change, so a new function is not generated when a component is rendered again.
+
+### useMemo()
+
+- Hook to save a value, so the value won't be recreated.
+
 ### Deployment
 
 - `npm run build`
@@ -230,6 +238,12 @@ const {KEY1, KEY2} = location.state;
   - [merge two json object based on key value in javascript](https://stackoverflow.com/questions/30093561/merge-two-json-object-based-on-key-value-in-javascript)
 - `ARRAY.filter()`
   - Automatically return a new array. It doesn't alter the old array.
+- Default export
+  - `export default NAME;`
+  - Can be used by `import NAME from 'SOMEWHERE';`
+- Named export
+  - `export const NAME;`
+  - Can be used by `import { NAME } from 'SOMEWHERE';`
 
 ## TypeScript
 
