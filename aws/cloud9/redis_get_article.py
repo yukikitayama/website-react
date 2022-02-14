@@ -60,7 +60,9 @@ def main():
     # Get article from top vote
     articles = get_articles(conn=client, order='score:')
     print(f'len(articles): {len(articles)}')
-    pprint.pprint(articles)
+    # pprint.pprint(articles)
+    for article in articles:
+        print(article['title'])
 
 
 if __name__ == '__main__':
