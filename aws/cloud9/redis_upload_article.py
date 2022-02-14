@@ -12,8 +12,9 @@ REGION_NAME = 'us-west-1'
 DATABASE_MONGODB = 'db-react'
 COLLECTION = 'skill'
 ID_MONGODB = ''
+IDS_TO_EXCLUDE_MONGODB = [ObjectId(''), ObjectId('')]
 KEY_REDIS = ''
-VOTE = 1
+VOTE = 0
 
 
 def get_secret(secret_id: str, region_name: str) -> dict:
@@ -22,6 +23,49 @@ def get_secret(secret_id: str, region_name: str) -> dict:
     secret_value = client.get_secret_value(SecretId=secret_id)
     secret_string = secret_value['SecretString']
     return json.loads(secret_string)
+
+
+def upload_one(collection, client_redis):
+    # Get one document from MongoDB
+    document = collection.find_one({ '_id': ObjectId(ID_MONGODB) })
+    # pprint.pprint(document)
+
+    # Upload the data to Redis
+    mapping = {
+        'title': document['title'],
+        'category': document['category'],
+        'date': document['date'],
+        'content': document['content'],
+        'vote': VOTE
+    }
+    result = client_redis.hset(name=KEY_REDIS, mapping=mapping)
+    print(f'HSET number of fields added: {result}')
+
+
+def bulk_upload(collection, client_redis, ids_to_exclude):
+    query = { '_id': { '$nin': ids_to_exclude } }
+    documents = collection.find(query)
+    article_id = 2
+    for document in documents:
+        
+        # Add HASH
+        mapping = {
+            'title': document['title'],
+            'category': document['category'],
+            'date': document['date'],
+            'content': document['content'],
+            'vote': VOTE
+        }
+        key = 'article:' + str(article_id)
+        result = client_redis.hset(name=key, mapping=mapping)
+        print(f'{key}, title: {document["title"]}, HSET number of fields added: {result}')
+        
+        # Add ZSET
+        result = client_redis.zadd('score:', { key: 0 })
+        print(f'ZADD, {key}, {result}')
+        
+        # Iterate
+        article_id += 1
 
 
 def main():
@@ -52,20 +96,11 @@ def main():
         decode_responses=True
     )
     
-    # Get one document from MongoDB
-    document = collection.find_one({ '_id': ObjectId(ID_MONGODB) })
-    # pprint.pprint(document)
-
-    # Upload the data to Redis
-    mapping = {
-        'title': document['title'],
-        'category': document['category'],
-        'date': document['date'],
-        'content': document['content'],
-        'vote': VOTE
-    }
-    result = client_redis.hset(name=KEY_REDIS, mapping=mapping)
-    print(f'HSET number of fields added: {result}')
+    # Upload one
+    # upload_one()
+    
+    # Bulk upload
+    bulk_upload(collection, client_redis, IDS_TO_EXCLUDE_MONGODB)
 
 
 if __name__ == '__main__':
