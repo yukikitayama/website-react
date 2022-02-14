@@ -13,6 +13,7 @@ DATABASE_MONGODB = 'db-react'
 COLLECTION = 'skill'
 ID_MONGODB = ''
 KEY_REDIS = ''
+VOTE = 1
 
 
 def get_secret(secret_id: str, region_name: str) -> dict:
@@ -52,19 +53,19 @@ def main():
     )
     
     # Get one document from MongoDB
-    # document = collection.find_one({ '_id': ObjectId(ID_MONGODB) })
+    document = collection.find_one({ '_id': ObjectId(ID_MONGODB) })
     # pprint.pprint(document)
 
     # Upload the data to Redis
-    # mapping = {
-    #     'title': document['title'],
-    #     'category': document['category'],
-    #     'date': document['date'],
-    #     'content': document['content'],
-    #     'vote': 0
-    # }
-    # result = client_redis.hset(name=KEY_REDIS, mapping=mapping)
-    # print(f'HSET: {result}')
+    mapping = {
+        'title': document['title'],
+        'category': document['category'],
+        'date': document['date'],
+        'content': document['content'],
+        'vote': VOTE
+    }
+    result = client_redis.hset(name=KEY_REDIS, mapping=mapping)
+    print(f'HSET number of fields added: {result}')
 
 
 if __name__ == '__main__':
