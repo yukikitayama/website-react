@@ -5,6 +5,7 @@ aws/lambda/*/*.zip
 # src/environments/
 .vscode/
 post/
+aws/cloud9/__pycache__
 
 # dependencies
 /node_modules
