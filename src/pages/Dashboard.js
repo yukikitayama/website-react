@@ -63,7 +63,7 @@ const Dashboard = () => {
             icon={<ConstructionIcon fontSize="large" color="primary" />}
             content={
               <ul>
-                <li>Style individual skill page</li>
+                <li>I guess because going to individual skill page by history push with state, directly typing skill page URL doesn't work since data isn't available from backend.</li>
                 <li>When a user clicks an item in Skill page to go to the individual page, send the clicked data to Redis to count up number of views for each skill page.</li>
                 <li>Remove type column from expense table</li>
                 <li>I want the place to show suggestion in expense item component</li>
