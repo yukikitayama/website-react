@@ -61,7 +61,7 @@ const Skill = () => {
                 alt={post.category}
                 title={post.title}
                 src={categoryToIcon.get(post.category)}
-                subheader={`${post.category} | ${post.date}`}
+                subheader={`${post.category} | ${post.date} | ${post.view} views`}
               />
             </Grid>
           ))}

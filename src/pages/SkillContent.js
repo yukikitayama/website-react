@@ -17,7 +17,7 @@ import classes from "./SkillContent.module.css";
 
 const SkillContent = () => {
   const location = useLocation();
-  const { title, category, date, content, alt, src } = location.state;
+  const { title, category, date, content, view, alt, src } = location.state;
 
   return (
     <Fragment>
@@ -27,7 +27,7 @@ const SkillContent = () => {
             <CardHeader
               title={title}
               titleTypographyProps={{ variant: "h4" }}
-              subheader={`${category} | ${date}`}
+              subheader={`${category} | ${date} | ${view} views`}
               avatar={
                 <Avatar alt={alt} src={src}>
                   {alt}

@@ -29,6 +29,10 @@
   - `update` is also dictionary to set a new filed or delete a field
     - Use `{ '$set': { 'NEW_FIELD_NAME': VALUE }, '$unset': { 'EXISTING_FIELD': 1 } }` to add AND delete fields.
 
+## Redis
+
+- xxx
+
 ## AWS
 
 ### Amplify
@@ -55,6 +59,18 @@
   - [html-react-parser](https://github.com/remarkablemark/html-react-parser)
 - Start React app
   - `$ npm start`
+- Render list of data
+
+```JavaScript
+{DATA.map((item) => {
+  return <JSX key={item.UNIQUE_VALUE}>item do SOMETHING</JSX>;
+})}
+```
+
+- Wrapper components
+  - Use it when we wanna inject JSX of other components to a component.
+  - Wrapping component needs to accept `props` parameter, and add `{props.children}` between the opening and closing JSX elements where we wanna inject JSX of other components.
+  - Wrapped component needs to be wrapped by the wrapping component opening and closing JSX elements.
 
 ### Props
 
@@ -217,6 +233,9 @@ const SomeContextProvider = (props) => {
 
 ## React Router
 
+- Configuration
+  - Wrap `<App />` with `<BrowserRouter></BrowserRouter>`
+  - `import { BrowserRouter } from 'react-router-dom';`
 - Move to a different page with data
   - Pass the data as state `useHistory()`, and retrieve the data by `useLocation()`
   - [How to pass additional data while redirecting to a route in React](https://levelup.gitconnected.com/how-to-pass-additional-data-while-redirecting-to-different-route-f7bf5f95d48c)
