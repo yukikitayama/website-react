@@ -42,6 +42,9 @@ def lambda_handler(event, context):
     ):
         key = event['queryStringParameters']['id']
         
+        # Increment view because a user accesses an individual article to read it
+        client_redis.hincrby(key, 'view')
+        
         # Find a single data
         article = client_redis.hgetall(key)
         article['_id'] = key
@@ -68,12 +71,15 @@ def lambda_handler(event, context):
         for key in keys:
             
             # HMGET gets a list of values for specified keys
-            article_data = client_redis.hmget(key, ['title', 'date', 'category'])
+            # Redis returns None in Python if a key in HASH does not exist
+            article_data = client_redis.hmget(key, ['title', 'date', 'category', 'view'])
             articles.append({
                 '_id': key,
                 'title': article_data[0],
                 'date': article_data[1],
-                'category': article_data[2]
+                'category': article_data[2],
+                # article_data[3] could be None if the page has not been viewed at all
+                'view': article_data[3] if article_data[3] else 0
             })
             
         return {
@@ -86,7 +92,7 @@ def lambda_handler(event, context):
 if __name__ == '__main__':
     event = {
         'queryStringParameters': {
-            'id': 'article:12'
+            # 'id': 'article:12'
         }
     }
     pprint.pprint(lambda_handler(event, ''))
