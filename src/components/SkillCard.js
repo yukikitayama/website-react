@@ -23,7 +23,7 @@ const SkillCard = (props) => {
     // history.push(`/skill/${props.id}`);
     history.push({
       pathname: `/skill/${props.id}`,
-      state: data.post
+      state: { ...data.post, alt: props.alt, src: props.src }
     });
   };
 

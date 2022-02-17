@@ -158,6 +158,18 @@ const SomeContextProvider = (props) => {
 - [Jest](https://jestjs.io/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
+### CSS
+
+- `CSS module`
+  - `XXX.module.css`
+- In CSS, define classes by `.CLASS_NAME { SOME_KEY: SOME_VALUE; }`
+- In JavaScript, use classes by 
+  - `import classes from './CSS_FILE.css';`
+  - `<ELEMENT className={classes.CLASS_NAME}>`
+- Add font to React
+  - [How to Add Fonts to a React Project](https://www.better.dev/how-to-add-fonts-to-a-react-project)
+  - [Ubuntu Google Fonts](https://fonts.google.com/specimen/Ubuntu)
+
 ## Redux
 
 - State management system for cross-component or app-wide state.
@@ -249,6 +261,13 @@ const {KEY1, KEY2} = location.state;
 
 - `JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.`
   - Close VS code and restart it.
+
+## Visual Studio Code
+
+### Prettier Code Fommatter
+
+- Preferences -> Settings -> User -> Search "format" -> Set "prettier" for default formmatter.
+- Preferences -> Keyboard shortcuts -> Search "format document" -> `Shift + Alt + F`
 
 ## Reference
 
